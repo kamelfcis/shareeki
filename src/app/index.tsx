@@ -37,12 +37,12 @@ function PageLoader() {
     <div className="space-y-6 p-8">
       <Skeleton className="h-8 w-48" />
       <Skeleton className="h-4 w-64" />
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {[...Array(4)].map((_, i) => (
           <Skeleton key={i} className="h-32 rounded-2xl" />
         ))}
       </div>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {[...Array(3)].map((_, i) => (
           <Skeleton key={i} className="h-64 rounded-2xl" />
         ))}
@@ -76,12 +76,23 @@ function ThemeDirectionSync() {
   }, [direction]);
 
   useEffect(() => {
-    document.documentElement.classList.remove("light", "dark");
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else if (theme === "system") {
-      const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      if (isDark) document.documentElement.classList.add("dark");
+    const applyTheme = () => {
+      document.documentElement.classList.remove("dark");
+      if (theme === "dark") {
+        document.documentElement.classList.add("dark");
+      } else if (theme === "system") {
+        const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        if (isDark) document.documentElement.classList.add("dark");
+      }
+    };
+
+    applyTheme();
+
+    if (theme === "system") {
+      const media = window.matchMedia("(prefers-color-scheme: dark)");
+      const handler = () => applyTheme();
+      media.addEventListener("change", handler);
+      return () => media.removeEventListener("change", handler);
     }
   }, [theme]);
 
