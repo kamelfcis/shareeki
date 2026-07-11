@@ -76,10 +76,10 @@ export function OtpPage() {
         <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-green-100 dark:bg-green-900/50 mx-auto">
           <CheckCircle className="h-8 w-8 text-green-600 dark:text-green-400" />
         </div>
-        <h2 className="text-[28px] font-bold text-neutral-900 dark:text-neutral-100 tracking-tight">
+        <h2 className="text-[28px] font-bold text-foreground tracking-tight">
           {locale === "ar" ? "تم التحقق بنجاح!" : "Verified Successfully!"}
         </h2>
-        <p className="mt-2 text-[15px] text-neutral-500 dark:text-neutral-400">
+        <p className="mt-2 text-[15px] text-muted-foreground">
           {locale === "ar" ? "جاري التحويل..." : "Redirecting..."}
         </p>
       </div>
@@ -87,7 +87,7 @@ export function OtpPage() {
   }
 
   const inputClasses = cn(
-    "h-14 w-12 text-center text-xl font-bold rounded-xl border border-neutral-200 bg-white shadow-sm transition-all duration-200",
+    "h-14 w-12 text-center text-xl font-bold rounded-xl border border-border bg-card shadow-sm transition-all duration-200",
     "focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500",
     "dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100 dark:focus:ring-brand-500/20 dark:focus:border-brand-500"
   );
@@ -98,10 +98,10 @@ export function OtpPage() {
         <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-100 dark:bg-brand-900/50 mx-auto">
           <KeyRound className="h-8 w-8 text-brand-600 dark:text-brand-400" />
         </div>
-        <h2 className="text-[28px] font-bold text-neutral-900 dark:text-neutral-100 tracking-tight">
+        <h2 className="text-[28px] font-bold text-foreground tracking-tight">
           {locale === "ar" ? "التحقق من الرمز" : "Verify Code"}
         </h2>
-        <p className="mt-2 text-[15px] text-neutral-500 dark:text-neutral-400">
+        <p className="mt-2 text-[15px] text-muted-foreground">
           {locale === "ar"
             ? "أدخل الرمز المكون من 6 أرقام المرسل إلى بريدك الإلكتروني"
             : "Enter the 6-digit code sent to your email"}
@@ -136,7 +136,7 @@ export function OtpPage() {
         </Button>
 
         <div className="text-center">
-          <p className="text-[14px] text-neutral-500 dark:text-neutral-400">
+          <p className="text-[14px] text-muted-foreground">
             {locale === "ar" ? "لم تتلق الرمز؟" : "Didn't receive the code?"}{" "}
             <button
               type="button"

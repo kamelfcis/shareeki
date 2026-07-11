@@ -89,7 +89,7 @@ export function AuthLayout() {
 
           {/* Center - Main Content */}
           <div className="flex-1 flex flex-col justify-center max-w-lg mx-auto w-full py-12">
-            <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-6 xl:p-8 shadow-2xl shadow-brand-900/20">
+            <div className="rounded-2xl border border-white/10 bg-card/5 backdrop-blur-md p-6 xl:p-8 shadow-2xl shadow-brand-900/20">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-400 mb-3">
                 {locale === "ar" ? "قطاع البترول والطاقة" : "Petroleum & Energy Sector"}
               </p>
@@ -134,7 +134,7 @@ export function AuthLayout() {
             ].map((stat) => (
               <div
                 key={stat.label}
-                className="rounded-xl bg-white/5 backdrop-blur-md border border-white/10 px-4 py-3 shadow-lg shadow-brand-900/10 hover:border-brand-400/30 transition-colors duration-300"
+                className="rounded-xl bg-card/5 backdrop-blur-md border border-white/10 px-4 py-3 shadow-lg shadow-brand-900/10 hover:border-brand-400/30 transition-colors duration-300"
               >
                 <p className="text-lg font-bold leading-none text-brand-300">{stat.value}</p>
                 <p className="text-xs text-white/50 mt-1">{stat.label}</p>

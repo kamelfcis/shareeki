@@ -46,10 +46,10 @@ export function AdminServicesPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+          <h1 className="text-2xl font-bold text-foreground">
             {locale === "ar" ? "إدارة الخدمات" : "Service Management"}
           </h1>
-          <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
+          <p className="text-sm text-muted-foreground mt-1">
             {filtered.length} {locale === "ar" ? "خدمة" : "services"}
           </p>
         </div>
@@ -90,23 +90,23 @@ export function AdminServicesPage() {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-neutral-200 dark:border-neutral-800">
-                  <th className="px-4 py-3 text-start text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                <tr className="border-b border-border">
+                  <th className="px-4 py-3 text-start text-xs font-medium text-muted-foreground uppercase tracking-wider">
                     {locale === "ar" ? "الخدمة" : "Service"}
                   </th>
-                  <th className="px-4 py-3 text-start text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                  <th className="px-4 py-3 text-start text-xs font-medium text-muted-foreground uppercase tracking-wider">
                     {locale === "ar" ? "الفئة" : "Category"}
                   </th>
-                  <th className="px-4 py-3 text-start text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                  <th className="px-4 py-3 text-start text-xs font-medium text-muted-foreground uppercase tracking-wider">
                     {locale === "ar" ? "السعر" : "Price"}
                   </th>
-                  <th className="px-4 py-3 text-start text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                  <th className="px-4 py-3 text-start text-xs font-medium text-muted-foreground uppercase tracking-wider">
                     {locale === "ar" ? "التقييم" : "Rating"}
                   </th>
-                  <th className="px-4 py-3 text-start text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                  <th className="px-4 py-3 text-start text-xs font-medium text-muted-foreground uppercase tracking-wider">
                     {locale === "ar" ? "الحالة" : "Status"}
                   </th>
-                  <th className="px-4 py-3 text-end text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                  <th className="px-4 py-3 text-end text-xs font-medium text-muted-foreground uppercase tracking-wider">
                     {locale === "ar" ? "إجراءات" : "Actions"}
                   </th>
                 </tr>
@@ -115,14 +115,14 @@ export function AdminServicesPage() {
                 {filtered.map((service) => (
                   <tr
                     key={service.id}
-                    className="border-b border-neutral-100 dark:border-neutral-800/50 hover:bg-neutral-50 dark:hover:bg-neutral-900/50 transition-colors"
+                    className="border-b border-neutral-100 dark:border-neutral-800/50 hover:bg-muted/50 transition-colors"
                   >
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
                         <img src={service.image} alt="" className="h-10 w-10 rounded-lg object-cover" />
                         <div className="min-w-0">
                           <p className="text-sm font-medium truncate">{locale === "ar" ? service.nameAr : service.name}</p>
-                          <p className="text-xs text-neutral-500 truncate">{service.provider}</p>
+                          <p className="text-xs text-muted-foreground truncate">{service.provider}</p>
                         </div>
                       </div>
                     </td>
@@ -133,7 +133,7 @@ export function AdminServicesPage() {
                       <div>
                         <span className="text-sm font-semibold text-brand-600 dark:text-brand-400">{formatPrice(service.price, locale)}</span>
                         {service.originalPrice && (
-                          <span className="text-xs text-neutral-400 line-through ms-1">{formatPrice(service.originalPrice, locale)}</span>
+                          <span className="text-xs text-muted-foreground line-through ms-1">{formatPrice(service.originalPrice, locale)}</span>
                         )}
                       </div>
                     </td>
@@ -141,7 +141,7 @@ export function AdminServicesPage() {
                       <div className="flex items-center gap-1">
                         <Star className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400" />
                         <span className="text-sm">{service.rating}</span>
-                        <span className="text-xs text-neutral-400">({service.reviews})</span>
+                        <span className="text-xs text-muted-foreground">({service.reviews})</span>
                       </div>
                     </td>
                     <td className="px-4 py-3">
@@ -186,10 +186,10 @@ export function AdminServicesPage() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2">
                       <div className="min-w-0">
-                        <h3 className="text-sm font-medium text-neutral-900 dark:text-neutral-100 truncate">
+                        <h3 className="text-sm font-medium text-foreground truncate">
                           {locale === "ar" ? service.nameAr : service.name}
                         </h3>
-                        <p className="text-xs text-neutral-500 dark:text-neutral-400 truncate">{service.provider}</p>
+                        <p className="text-xs text-muted-foreground truncate">{service.provider}</p>
                       </div>
                       <Badge variant={service.available ? "success" : "secondary"} className="text-[10px] shrink-0">
                         {service.available ? (locale === "ar" ? "نشط" : "Active") : (locale === "ar" ? "غير نشط" : "Inactive")}

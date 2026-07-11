@@ -69,10 +69,10 @@ export function AdminApprovalsPage() {
     <motion.div initial="initial" animate="animate" variants={fadeIn} className="space-y-6">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+          <h1 className="text-2xl font-bold text-foreground">
             {locale === "ar" ? "الموافقات" : "Approvals"}
           </h1>
-          <p className="text-sm text-neutral-500 mt-1">
+          <p className="text-sm text-muted-foreground mt-1">
             {pendingCount} {locale === "ar" ? "طلب في انتظار الموافقة" : "pending approvals"}
           </p>
         </div>
@@ -98,7 +98,7 @@ export function AdminApprovalsPage() {
                 <stat.icon className="h-5 w-5" />
               </div>
               <p className="text-xl font-bold">{stat.count}</p>
-              <p className="text-xs text-neutral-500 capitalize">{stat.status.replace("_", " ")}</p>
+              <p className="text-xs text-muted-foreground capitalize">{stat.status.replace("_", " ")}</p>
             </CardContent>
           </Card>
         ))}
@@ -140,10 +140,10 @@ export function AdminApprovalsPage() {
                         <h3 className="text-sm font-semibold">{locale === "ar" ? request.titleAr : request.title}</h3>
                         <Badge variant="outline" className="text-[10px]">{request.type}</Badge>
                       </div>
-                      <p className="text-xs text-neutral-500 line-clamp-1 mb-2">
+                      <p className="text-xs text-muted-foreground line-clamp-1 mb-2">
                         {locale === "ar" ? request.descriptionAr : request.description}
                       </p>
-                      <div className="flex items-center gap-3 text-xs text-neutral-400">
+                      <div className="flex items-center gap-3 text-xs text-muted-foreground">
                         <span>{request.submittedAt}</span>
                         {request.attachments.length > 0 && (
                           <span className="flex items-center gap-1">

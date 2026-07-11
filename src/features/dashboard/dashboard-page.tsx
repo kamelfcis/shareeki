@@ -64,8 +64,8 @@ export function DashboardPage() {
         className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br from-brand-600 via-brand-700 to-brand-800 p-5 sm:p-8 text-white shadow-xl shadow-brand-600/20"
       >
         <div className="absolute inset-0 opacity-20">
-          <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
-          <div className="absolute -bottom-16 -left-16 h-48 w-48 rounded-full bg-white/10 blur-3xl" />
+          <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-card/10 blur-3xl" />
+          <div className="absolute -bottom-16 -left-16 h-48 w-48 rounded-full bg-card/10 blur-3xl" />
         </div>
         <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div className="min-w-0">
@@ -82,7 +82,7 @@ export function DashboardPage() {
                 asChild
                 variant="secondary"
                 size="sm"
-                className="bg-white/15 hover:bg-white/25 text-white border-0 backdrop-blur-sm rounded-xl"
+                className="bg-card/15 hover:bg-card/25 text-white border-0 backdrop-blur-sm rounded-xl"
               >
                 <Link to="/services">
                   <ShoppingBag className="h-4 w-4" />
@@ -93,7 +93,7 @@ export function DashboardPage() {
                 asChild
                 variant="secondary"
                 size="sm"
-                className="bg-white/15 hover:bg-white/25 text-white border-0 backdrop-blur-sm rounded-xl"
+                className="bg-card/15 hover:bg-card/25 text-white border-0 backdrop-blur-sm rounded-xl"
               >
                 <Link to="/requests">
                   <FileText className="h-4 w-4" />
@@ -103,7 +103,7 @@ export function DashboardPage() {
             </div>
           </div>
           <div className="hidden md:block shrink-0">
-            <div className="rounded-2xl bg-white/10 backdrop-blur-sm p-5 border border-white/10">
+            <div className="rounded-2xl bg-card/10 backdrop-blur-sm p-5 border border-white/10">
               <p className="text-sm text-white/60 mb-1">{locale === "ar" ? "رصيد المحفظة" : "Wallet Balance"}</p>
               <p className="text-3xl font-bold tracking-tight">{formatPrice(4850, locale)}</p>
               <p className="text-xs text-white/50 mt-1.5 flex items-center gap-1">
@@ -215,9 +215,9 @@ export function DashboardPage() {
                 <div key={cat.name} className="flex items-center justify-between text-sm">
                   <div className="flex items-center gap-2 min-w-0">
                     <div className="h-2.5 w-2.5 rounded-full shrink-0" style={{ backgroundColor: cat.color }} />
-                    <span className="text-neutral-600 dark:text-neutral-400 truncate">{cat.name}</span>
+                    <span className="text-muted-foreground truncate">{cat.name}</span>
                   </div>
-                  <span className="font-medium text-neutral-900 dark:text-neutral-100 shrink-0 ms-2">{cat.value}%</span>
+                  <span className="font-medium text-foreground shrink-0 ms-2">{cat.value}%</span>
                 </div>
               ))}
             </div>
@@ -248,14 +248,14 @@ export function DashboardPage() {
                     <Bell className="h-4 w-4" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100 leading-snug">
+                    <p className="text-sm font-medium text-foreground leading-snug">
                       {locale === "ar" ? activity.titleAr : activity.title}
                     </p>
-                    <p className="text-xs text-neutral-500 dark:text-neutral-400 truncate mt-0.5">
+                    <p className="text-xs text-muted-foreground truncate mt-0.5">
                       {locale === "ar" ? activity.descriptionAr : activity.description}
                     </p>
                   </div>
-                  <span className="text-xs text-neutral-400 dark:text-neutral-500 whitespace-nowrap shrink-0">
+                  <span className="text-xs text-muted-foreground dark:text-muted-foreground whitespace-nowrap shrink-0">
                     {new Date(activity.timestamp).toLocaleTimeString([], {
                       hour: "2-digit",
                       minute: "2-digit",
@@ -282,7 +282,7 @@ export function DashboardPage() {
               {mockAnnouncements.map((ann) => (
                 <div
                   key={ann.id}
-                  className="group rounded-xl border border-neutral-200 p-3.5 transition-all hover:shadow-md hover:border-neutral-300 dark:border-neutral-800 dark:hover:border-neutral-700 cursor-pointer"
+                  className="group rounded-xl border border-border p-3.5 transition-all hover:shadow-md hover:border-neutral-300 dark:border-neutral-800 dark:hover:border-neutral-700 cursor-pointer"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex-1 min-w-0">
@@ -300,19 +300,19 @@ export function DashboardPage() {
                           {ann.priority}
                         </Badge>
                       </div>
-                      <h4 className="text-sm font-medium text-neutral-900 dark:text-neutral-100 leading-snug">
+                      <h4 className="text-sm font-medium text-foreground leading-snug">
                         {locale === "ar" ? ann.titleAr : ann.title}
                       </h4>
-                      <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 line-clamp-2 leading-relaxed">
+                      <p className="text-xs text-muted-foreground mt-1 line-clamp-2 leading-relaxed">
                         {locale === "ar" ? ann.contentAr : ann.content}
                       </p>
-                      <p className="text-xs text-neutral-400 dark:text-neutral-500 mt-1.5">
+                      <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-1.5">
                         {ann.publishedAt}
                       </p>
                     </div>
                     <ChevronRight
                       className={cn(
-                        "h-4 w-4 text-neutral-300 dark:text-neutral-600 shrink-0 group-hover:text-brand-500 transition-colors",
+                        "h-4 w-4 text-neutral-300 dark:text-muted-foreground shrink-0 group-hover:text-brand-500 transition-colors",
                         isRTL && "rotate-180"
                       )}
                     />
@@ -364,12 +364,12 @@ export function DashboardPage() {
                 <Link
                   key={action.href}
                   to={action.href}
-                  className="flex flex-col items-center gap-2.5 rounded-xl border border-neutral-200 p-4 transition-all hover:shadow-md hover:border-neutral-300 hover:scale-[1.02] dark:border-neutral-800 dark:hover:border-neutral-700 active:scale-[0.98]"
+                  className="flex flex-col items-center gap-2.5 rounded-xl border border-border p-4 transition-all hover:shadow-md hover:border-neutral-300 hover:scale-[1.02] dark:border-neutral-800 dark:hover:border-neutral-700 active:scale-[0.98]"
                 >
                   <div className={cn("rounded-xl p-2.5", action.color)}>
                     <action.icon className="h-5 w-5" />
                   </div>
-                  <span className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
+                  <span className="text-xs font-medium text-foreground">
                     {action.label}
                   </span>
                 </Link>
@@ -393,7 +393,7 @@ export function DashboardPage() {
               {mockEvents.map((event) => (
                 <div
                   key={event.id}
-                  className="group flex items-center gap-3 sm:gap-4 rounded-xl border border-neutral-200 p-3 transition-all hover:shadow-md hover:border-neutral-300 dark:border-neutral-800 dark:hover:border-neutral-700 cursor-pointer"
+                  className="group flex items-center gap-3 sm:gap-4 rounded-xl border border-border p-3 transition-all hover:shadow-md hover:border-neutral-300 dark:border-neutral-800 dark:hover:border-neutral-700 cursor-pointer"
                 >
                   <div className="flex h-12 w-12 sm:h-14 sm:w-14 flex-col items-center justify-center rounded-xl bg-brand-50 text-brand-700 dark:bg-brand-950/60 dark:text-brand-300 shrink-0">
                     <span className="text-[10px] sm:text-xs font-medium leading-none">
@@ -404,10 +404,10 @@ export function DashboardPage() {
                     </span>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h4 className="text-sm font-medium text-neutral-900 dark:text-neutral-100 truncate">
+                    <h4 className="text-sm font-medium text-foreground truncate">
                       {locale === "ar" ? event.titleAr : event.title}
                     </h4>
-                    <p className="text-xs text-neutral-500 dark:text-neutral-400 truncate mt-0.5">
+                    <p className="text-xs text-muted-foreground truncate mt-0.5">
                       {event.time} • {locale === "ar" ? event.locationAr : event.location}
                     </p>
                   </div>
@@ -443,7 +443,7 @@ export function DashboardPage() {
                 .map((service) => (
                   <div
                     key={service.id}
-                    className="group rounded-2xl border border-neutral-200 overflow-hidden transition-all hover:shadow-lg hover:border-neutral-300 dark:border-neutral-800 dark:hover:border-neutral-700 cursor-pointer"
+                    className="group rounded-2xl border border-border overflow-hidden transition-all hover:shadow-lg hover:border-neutral-300 dark:border-neutral-800 dark:hover:border-neutral-700 cursor-pointer"
                   >
                     <div className="relative h-28 sm:h-32 overflow-hidden">
                       <img
@@ -459,10 +459,10 @@ export function DashboardPage() {
                       )}
                     </div>
                     <div className="p-3">
-                      <h4 className="text-sm font-medium text-neutral-900 dark:text-neutral-100 leading-snug">
+                      <h4 className="text-sm font-medium text-foreground leading-snug">
                         {locale === "ar" ? service.nameAr : service.name}
                       </h4>
-                      <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
+                      <p className="text-xs text-muted-foreground mt-0.5">
                         {locale === "ar" ? service.providerAr : service.provider}
                       </p>
                       <div className="mt-2 flex items-center justify-between">
@@ -471,7 +471,7 @@ export function DashboardPage() {
                             {formatPrice(service.price, locale)}
                           </span>
                           {service.originalPrice && (
-                            <span className="text-[11px] text-neutral-400 line-through">
+                            <span className="text-[11px] text-muted-foreground line-through">
                               {formatPrice(service.originalPrice, locale)}
                             </span>
                           )}

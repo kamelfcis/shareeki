@@ -4,7 +4,6 @@ import {
   getCoreRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  getFilteredRowModel,
   flexRender,
   type ColumnDef,
   type SortingState,
@@ -65,25 +64,25 @@ export function DataTable<TData>({
   return (
     <Card>
       <CardContent className="p-0">
-        <div className="p-4 border-b border-neutral-200 dark:border-neutral-800">
+        <div className="p-4 border-b border-border">
           <Input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={searchPlaceholder}
             leftIcon={<Search className="h-4 w-4" />}
-            className="max-w-sm"
+            className="w-full sm:max-w-sm"
           />
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full">
+        <div className="overflow-x-auto -mx-px">
+          <table className="w-full min-w-[640px]">
             <thead>
               {table.getHeaderGroups().map((headerGroup) => (
-                <tr key={headerGroup.id} className="border-b border-neutral-200 dark:border-neutral-800">
+                <tr key={headerGroup.id} className="border-b border-border">
                   {headerGroup.headers.map((header) => (
                     <th
                       key={header.id}
-                      className="px-4 py-3 text-start text-xs font-medium text-neutral-500 uppercase tracking-wider"
+                      className="px-4 py-3 text-start text-xs font-medium text-muted-foreground uppercase tracking-wider whitespace-nowrap"
                     >
                       {header.isPlaceholder
                         ? null
@@ -96,7 +95,7 @@ export function DataTable<TData>({
             <tbody>
               {table.getRowModel().rows.length === 0 ? (
                 <tr>
-                  <td colSpan={columns.length} className="px-4 py-12 text-center text-sm text-neutral-500">
+                  <td colSpan={columns.length} className="px-4 py-12 text-center text-sm text-muted-foreground">
                     {locale === "ar" ? "لا توجد نتائج" : "No results found"}
                   </td>
                 </tr>
@@ -104,10 +103,10 @@ export function DataTable<TData>({
                 table.getRowModel().rows.map((row) => (
                   <tr
                     key={row.id}
-                    className="border-b border-neutral-100 dark:border-neutral-800/50 hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-colors"
+                    className="border-b border-border/50 hover:bg-muted transition-colors"
                   >
                     {row.getVisibleCells().map((cell) => (
-                      <td key={cell.id} className="px-4 py-3">
+                      <td key={cell.id} className="px-4 py-3 text-sm text-foreground">
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                       </td>
                     ))}
@@ -118,8 +117,8 @@ export function DataTable<TData>({
           </table>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center justify-between px-4 py-3 border-t border-neutral-200 dark:border-neutral-800 gap-3">
-          <p className="text-sm text-neutral-500">
+        <div className="flex flex-col sm:flex-row items-center justify-between px-4 py-3 border-t border-border gap-3">
+          <p className="text-sm text-muted-foreground">
             {locale === "ar" ? "صفحة" : "Page"} {table.getState().pagination.pageIndex + 1}{" "}
             {locale === "ar" ? "من" : "of"} {table.getPageCount()}
           </p>
@@ -129,6 +128,7 @@ export function DataTable<TData>({
               size="icon-sm"
               onClick={() => table.previousPage()}
               disabled={!table.getCanPreviousPage()}
+              aria-label={locale === "ar" ? "الصفحة السابقة" : "Previous page"}
             >
               <ChevronLeft className={cn("h-4 w-4", isRTL && "rotate-180")} />
             </Button>
@@ -140,7 +140,8 @@ export function DataTable<TData>({
                   variant={table.getState().pagination.pageIndex === pageIndex ? "default" : "outline"}
                   size="icon-sm"
                   onClick={() => table.setPageIndex(pageIndex)}
-                  className="w-8 h-8"
+                  className="w-9 h-9"
+                  aria-label={`${locale === "ar" ? "صفحة" : "Page"} ${pageIndex + 1}`}
                 >
                   {pageIndex + 1}
                 </Button>
@@ -151,6 +152,7 @@ export function DataTable<TData>({
               size="icon-sm"
               onClick={() => table.nextPage()}
               disabled={!table.getCanNextPage()}
+              aria-label={locale === "ar" ? "الصفحة التالية" : "Next page"}
             >
               <ChevronRight className={cn("h-4 w-4", isRTL && "rotate-180")} />
             </Button>
@@ -165,7 +167,7 @@ export function SortableHeader({ children, column }: { children: React.ReactNode
   return (
     <button
       onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      className="flex items-center gap-1 hover:text-brand-600"
+      className="flex items-center gap-1 hover:text-primary min-h-11 sm:min-h-0"
     >
       {children}
       <ArrowUpDown className="h-3 w-3" />

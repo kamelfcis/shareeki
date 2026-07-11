@@ -84,10 +84,10 @@ export function AdminDepartmentsPage() {
     <motion.div initial="initial" animate="animate" variants={fadeIn} className="space-y-6">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+          <h1 className="text-2xl font-bold text-foreground">
             {locale === "ar" ? "إدارة الأقسام" : "Department Management"}
           </h1>
-          <p className="text-sm text-neutral-500 mt-1">
+          <p className="text-sm text-muted-foreground mt-1">
             {filtered.length} {locale === "ar" ? "قسم" : "departments"}
           </p>
         </div>
@@ -129,13 +129,13 @@ export function AdminDepartmentsPage() {
                     </Button>
                   </div>
                 </div>
-                <h3 className="font-semibold text-neutral-900 dark:text-neutral-100 mb-1">
+                <h3 className="font-semibold text-foreground mb-1">
                   {locale === "ar" ? dept.nameAr : dept.name}
                 </h3>
-                <p className="text-xs text-neutral-500 dark:text-neutral-400 mb-3 line-clamp-2">
+                <p className="text-xs text-muted-foreground mb-3 line-clamp-2">
                   {locale === "ar" ? dept.descriptionAr : dept.description}
                 </p>
-                <div className="flex items-center justify-between text-xs text-neutral-500">
+                <div className="flex items-center justify-between text-xs text-muted-foreground">
                   <div className="flex items-center gap-1">
                     <Users className="h-3.5 w-3.5" />
                     <span>{dept.employeeCount} {locale === "ar" ? "موظف" : "employees"}</span>
@@ -156,7 +156,7 @@ export function AdminDepartmentsPage() {
           </DialogHeader>
           <div className="space-y-4">
             <div className="space-y-1.5">
-              <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+              <label className="text-sm font-medium text-foreground">
                 {locale === "ar" ? "اسم القسم" : "Department Name"}
               </label>
               <Input value={editName} onChange={(e) => setEditName(e.target.value)} />
@@ -177,7 +177,7 @@ export function AdminDepartmentsPage() {
           </DialogHeader>
           <div className="space-y-4">
             <div className="space-y-1.5">
-              <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+              <label className="text-sm font-medium text-foreground">
                 {locale === "ar" ? "اسم القسم" : "Department Name"}
               </label>
               <Input value={addName} onChange={(e) => setAddName(e.target.value)} placeholder={locale === "ar" ? "اسم القسم" : "e.g. Engineering"} />

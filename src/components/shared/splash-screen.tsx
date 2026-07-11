@@ -109,12 +109,12 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
             : "Enterprise Employee Services Platform"}
         </p>
 
-        <p className="mt-1 text-xs text-neutral-500 animate-splash-text-enter [animation-delay:350ms]">
+        <p className="mt-1 text-xs text-muted-foreground animate-splash-text-enter [animation-delay:350ms]">
           {locale === "ar" ? "قطاع البترول والطاقة" : "Petroleum & Energy Sector"}
         </p>
 
         {/* Progress bar */}
-        <div className="mt-10 h-0.5 w-48 sm:w-56 overflow-hidden rounded-full bg-white/10">
+        <div className="mt-10 h-0.5 w-48 sm:w-56 overflow-hidden rounded-full bg-card/10">
           <div className="h-full rounded-full bg-gradient-to-r from-brand-600 via-brand-400 to-brand-300 animate-splash-progress" />
         </div>
       </div>

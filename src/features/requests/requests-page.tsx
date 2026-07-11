@@ -106,10 +106,10 @@ export function RequestsPage() {
       {/* Header */}
       <motion.div variants={fadeIn} className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+          <h1 className="text-2xl font-bold text-foreground">
             {locale === "ar" ? "الطلبات" : "Requests"}
           </h1>
-          <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
+          <p className="text-sm text-muted-foreground mt-1">
             {locale === "ar" ? "إدارة طلباتك ومتتبعتها" : "Manage and track your requests"}
           </p>
         </div>
@@ -122,7 +122,7 @@ export function RequestsPage() {
       {/* Stats */}
       <motion.div variants={fadeIn} className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
-          { label: locale === "ar" ? "الكل" : "Total", count: requests.length, color: "text-neutral-600" },
+          { label: locale === "ar" ? "الكل" : "Total", count: requests.length, color: "text-muted-foreground" },
           { label: locale === "ar" ? "قيد الانتظار" : "Pending", count: requests.filter(r => r.status === "pending").length, color: "text-yellow-600" },
           { label: locale === "ar" ? "موافق عليه" : "Approved", count: requests.filter(r => r.status === "approved").length, color: "text-green-600" },
           { label: locale === "ar" ? "مرفوض" : "Rejected", count: requests.filter(r => r.status === "rejected").length, color: "text-red-600" },
@@ -130,7 +130,7 @@ export function RequestsPage() {
           <Card key={stat.label} className="hover:shadow-md transition-shadow cursor-pointer" onClick={() => setActiveTab(stat.label === "Total" || stat.label === "الكل" ? "all" : stat.label === "Pending" || stat.label === "قيد الانتظار" ? "pending" : stat.label === "Approved" || stat.label === "موافق عليه" ? "approved" : "rejected")}>
             <CardContent className="p-4 text-center">
               <p className={cn("text-2xl font-bold", stat.color)}>{stat.count}</p>
-              <p className="text-xs text-neutral-500 dark:text-neutral-400">{stat.label}</p>
+              <p className="text-xs text-muted-foreground">{stat.label}</p>
             </CardContent>
           </Card>
         ))}
@@ -187,17 +187,17 @@ export function RequestsPage() {
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-1">
-                            <h3 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+                            <h3 className="text-sm font-semibold text-foreground">
                               {locale === "ar" ? request.titleAr : request.title}
                             </h3>
                             <Badge variant="outline" className="text-[10px] shrink-0">
                               {locale === "ar" ? request.typeAr : request.type}
                             </Badge>
                           </div>
-                          <p className="text-xs text-neutral-500 dark:text-neutral-400 line-clamp-1">
+                          <p className="text-xs text-muted-foreground line-clamp-1">
                             {locale === "ar" ? request.descriptionAr : request.description}
                           </p>
-                          <div className="flex items-center gap-4 mt-2 text-xs text-neutral-400">
+                          <div className="flex items-center gap-4 mt-2 text-xs text-muted-foreground">
                             <span className="flex items-center gap-1">
                               <Calendar className="h-3 w-3" />
                               {request.submittedAt}
@@ -226,7 +226,7 @@ export function RequestsPage() {
                             request.status === "in_progress" ? "قيد التنفيذ" : "مكتمل"
                           ) : status.label}
                         </Badge>
-                        <ChevronRight className={cn("h-4 w-4 text-neutral-400 group-hover:text-brand-500 transition-colors", isRTL && "rotate-180")} />
+                        <ChevronRight className={cn("h-4 w-4 text-muted-foreground group-hover:text-brand-500 transition-colors", isRTL && "rotate-180")} />
                       </div>
                     </div>
                   </CardContent>
@@ -245,21 +245,21 @@ export function RequestsPage() {
           </DialogHeader>
           <div className="space-y-4">
             <div className="space-y-1.5">
-              <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+              <label className="text-sm font-medium text-foreground">
                 {locale === "ar" ? "نوع الطلب" : "Request Type"}
               </label>
               <select
                 value={newRequest.type}
                 onChange={(e) => setNewRequest((p) => ({ ...p, type: e.target.value }))}
-                className="flex h-10 w-full rounded-xl border border-neutral-200 bg-white px-3 py-2 text-sm dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100"
+                className="flex h-10 w-full rounded-xl border border-border bg-card px-3 py-2 text-sm dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100"
               >
-                {REQUEST_TYPES.map((t) => (
-                  <option key={t.value} value={t.value}>{locale === "ar" ? t.labelAr : t.label}</option>
+                {REQUEST_TYPES.map((typeOption) => (
+                  <option key={typeOption.value} value={typeOption.value}>{locale === "ar" ? typeOption.labelAr : typeOption.label}</option>
                 ))}
               </select>
             </div>
             <div className="space-y-1.5">
-              <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+              <label className="text-sm font-medium text-foreground">
                 {locale === "ar" ? "العنوان" : "Title"}
               </label>
               <Input
@@ -269,7 +269,7 @@ export function RequestsPage() {
               />
             </div>
             <div className="space-y-1.5">
-              <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+              <label className="text-sm font-medium text-foreground">
                 {locale === "ar" ? "التفاصيل" : "Description"}
               </label>
               <textarea
@@ -277,7 +277,7 @@ export function RequestsPage() {
                 onChange={(e) => setNewRequest((p) => ({ ...p, description: e.target.value }))}
                 placeholder={locale === "ar" ? "اشرح طلبك بالتفصيل..." : "Describe your request in detail..."}
                 rows={4}
-                className="flex w-full rounded-xl border border-neutral-200 bg-white px-3 py-2 text-sm placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100 dark:placeholder:text-neutral-500"
+                className="flex w-full rounded-xl border border-border bg-card px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100 dark:placeholder:text-muted-foreground"
               />
             </div>
           </div>
@@ -318,20 +318,20 @@ export function RequestsPage() {
                     {locale === "ar" ? selectedRequest.typeAr : selectedRequest.type}
                   </Badge>
                 </div>
-                <div className="rounded-xl border border-neutral-200 dark:border-neutral-800 p-4 bg-neutral-50 dark:bg-neutral-900">
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                <div className="rounded-xl border border-border p-4 bg-muted">
+                  <p className="text-sm text-muted-foreground">
                     {locale === "ar" ? selectedRequest.descriptionAr : selectedRequest.description}
                   </p>
-                  <p className="text-xs text-neutral-400 mt-3">{selectedRequest.submittedAt}</p>
+                  <p className="text-xs text-muted-foreground mt-3">{selectedRequest.submittedAt}</p>
                 </div>
                 {selectedRequest.attachments.length > 0 && (
                   <div>
-                    <h4 className="text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+                    <h4 className="text-sm font-medium text-foreground mb-2">
                       {locale === "ar" ? "المرفقات" : "Attachments"} ({selectedRequest.attachments.length})
                     </h4>
                     <div className="space-y-1">
                       {selectedRequest.attachments.map((att: string, i: number) => (
-                        <div key={i} className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400">
+                        <div key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
                           <Paperclip className="h-3 w-3" />
                           {att}
                         </div>

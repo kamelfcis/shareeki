@@ -53,10 +53,10 @@ export function DirectoryPage() {
       {/* Header */}
       <motion.div variants={fadeIn} className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+          <h1 className="text-2xl font-bold text-foreground">
             {locale === "ar" ? "دليل الموظفين" : "Employee Directory"}
           </h1>
-          <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
+          <p className="text-sm text-muted-foreground mt-1">
             {locale === "ar" ? "ابحث عن زملائك في العمل" : "Find your colleagues"}
           </p>
         </div>
@@ -84,10 +84,10 @@ export function DirectoryPage() {
           <Card key={dept.id} className="hover:shadow-md transition-shadow cursor-pointer">
             <CardContent className="p-4 text-center">
               <Building2 className="h-6 w-6 mx-auto mb-2 text-brand-500" />
-              <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+              <p className="text-sm font-medium text-foreground">
                 {locale === "ar" ? dept.nameAr : dept.name}
               </p>
-              <p className="text-xs text-neutral-500">{dept.employeeCount} {locale === "ar" ? "موظف" : "employees"}</p>
+              <p className="text-xs text-muted-foreground">{dept.employeeCount} {locale === "ar" ? "موظف" : "employees"}</p>
             </CardContent>
           </Card>
         ))}
@@ -134,10 +134,10 @@ export function DirectoryPage() {
                   <Card className="group hover:shadow-lg transition-all duration-300 cursor-pointer">
                     <CardContent className="p-6 text-center">
                       <UserAvatar src={emp.avatar} name={emp.name} size="xl" className="mx-auto" />
-                      <h3 className="mt-4 font-semibold text-neutral-900 dark:text-neutral-100 group-hover:text-brand-600 transition-colors">
+                      <h3 className="mt-4 font-semibold text-foreground group-hover:text-brand-600 transition-colors">
                         {locale === "ar" ? emp.nameAr : emp.name}
                       </h3>
-                      <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                      <p className="text-sm text-muted-foreground">
                         {locale === "ar" ? emp.positionAr : emp.position}
                       </p>
                       <Badge variant="secondary" className="mt-2 text-xs">
@@ -170,13 +170,13 @@ export function DirectoryPage() {
                       <div className="flex items-center gap-4">
                         <UserAvatar src={emp.avatar} name={emp.name} size="lg" />
                         <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-neutral-900 dark:text-neutral-100">
+                          <h3 className="font-semibold text-foreground">
                             {locale === "ar" ? emp.nameAr : emp.name}
                           </h3>
-                          <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                          <p className="text-sm text-muted-foreground">
                             {locale === "ar" ? emp.positionAr : emp.position}
                           </p>
-                          <div className="flex items-center gap-3 mt-1 text-xs text-neutral-400">
+                          <div className="flex items-center gap-3 mt-1 text-xs text-muted-foreground">
                             <span className="flex items-center gap-1">
                               <Building2 className="h-3 w-3" />
                               {locale === "ar" ? emp.departmentAr : emp.department}
@@ -191,7 +191,7 @@ export function DirectoryPage() {
                           <Button variant="ghost" size="icon-sm" onClick={() => window.location.href = `mailto:${emp.email || emp.name.toLowerCase().replace(" ", ".")}@shareky.com`}>
                             <Mail className="h-4 w-4" />
                           </Button>
-                          <ChevronRight className={cn("h-4 w-4 text-neutral-400", isRTL && "rotate-180")} />
+                          <ChevronRight className={cn("h-4 w-4 text-muted-foreground", isRTL && "rotate-180")} />
                         </div>
                       </div>
                     </CardContent>

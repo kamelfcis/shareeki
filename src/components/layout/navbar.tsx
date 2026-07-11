@@ -82,8 +82,8 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-30 flex h-14 sm:h-16 items-center gap-2 sm:gap-4 border-b border-neutral-200/80 bg-white/80 backdrop-blur-xl px-3 sm:px-4 lg:px-6 transition-all duration-200 dark:border-neutral-800/80 dark:bg-neutral-950/80",
-        scrolled && "shadow-sm shadow-neutral-200/50 dark:shadow-neutral-900/50"
+        "sticky top-0 z-30 flex h-14 sm:h-16 items-center gap-2 sm:gap-4 border-b border-border/80 bg-background/80 backdrop-blur-xl px-3 sm:px-4 lg:px-6 transition-all duration-200",
+        scrolled && "shadow-sm"
       )}
     >
       {/* Mobile Menu Button */}
@@ -99,7 +99,7 @@ export function Navbar() {
 
       {/* Page Title */}
       <div className="flex-1 min-w-0">
-        <h1 className="text-base sm:text-lg font-semibold text-neutral-900 dark:text-neutral-100 truncate">
+        <h1 className="text-base sm:text-lg font-semibold text-foreground truncate">
           {getPageTitle()}
         </h1>
       </div>
@@ -107,11 +107,11 @@ export function Navbar() {
       {/* Search - Desktop */}
       <button
         onClick={toggleCommandPalette}
-        className="hidden sm:flex items-center gap-2 rounded-xl border border-neutral-200 bg-neutral-50/80 px-3 py-2 text-sm text-neutral-500 transition-all hover:border-neutral-300 hover:bg-neutral-100 hover:shadow-sm dark:border-neutral-700 dark:bg-neutral-900/80 dark:text-neutral-400 dark:hover:border-neutral-600 dark:hover:bg-neutral-800"
+        className="hidden sm:flex items-center gap-2 rounded-xl border border-border bg-muted/80 px-3 py-2 text-sm text-muted-foreground transition-all hover:border-neutral-300 hover:bg-muted hover:shadow-sm min-h-11"
       >
         <Search className="h-4 w-4 shrink-0" />
         <span className="hidden md:inline">{locale === "ar" ? "بحث..." : "Search..."}</span>
-        <kbd className="hidden lg:inline-flex h-5 items-center gap-0.5 rounded border border-neutral-300 bg-white px-1.5 text-[10px] font-medium text-neutral-400 dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-500">
+        <kbd className="hidden lg:inline-flex h-5 items-center gap-0.5 rounded border border-border bg-card px-1.5 text-[10px] font-medium text-muted-foreground">
           <Command className="h-2.5 w-2.5" />K
         </kbd>
       </button>
@@ -119,7 +119,7 @@ export function Navbar() {
       {/* Search - Mobile (icon only) */}
       <button
         onClick={toggleCommandPalette}
-        className="sm:hidden flex items-center justify-center h-9 w-9 rounded-lg text-neutral-500 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+        className="sm:hidden flex items-center justify-center h-11 w-11 rounded-lg text-muted-foreground hover:bg-muted transition-colors"
         aria-label="Search"
       >
         <Search className="h-5 w-5" />
@@ -128,11 +128,11 @@ export function Navbar() {
       {/* Notifications */}
       <Link
         to="/notifications"
-        className="relative flex items-center justify-center h-9 w-9 rounded-lg text-neutral-600 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800 transition-colors shrink-0"
+        className="relative flex items-center justify-center h-11 w-11 rounded-lg text-muted-foreground hover:bg-muted transition-colors shrink-0"
         aria-label="Notifications"
       >
         <Bell className="h-[18px] w-[18px]" />
-        <span className="absolute -top-0.5 -end-0.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-accent-500 px-1 text-[10px] font-bold text-white ring-2 ring-white dark:ring-neutral-950">
+        <span className="absolute -top-0.5 -end-0.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-accent-500 px-1 text-[10px] font-bold text-white ring-2 ring-background">
           3
         </span>
       </Link>
@@ -140,7 +140,7 @@ export function Navbar() {
       {/* Theme Toggle */}
       <button
         onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-        className="flex items-center justify-center h-9 w-9 rounded-lg text-neutral-600 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800 transition-colors shrink-0"
+        className="flex items-center justify-center h-11 w-11 rounded-lg text-muted-foreground hover:bg-muted transition-colors shrink-0 relative"
         aria-label="Toggle theme"
       >
         <Sun className="h-[18px] w-[18px] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 absolute" />
@@ -150,7 +150,7 @@ export function Navbar() {
       {/* Language Switcher */}
       <button
         onClick={() => setLocale(locale === "en" ? "ar" : "en")}
-        className="flex items-center justify-center h-9 w-9 rounded-lg text-neutral-600 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800 transition-colors shrink-0"
+        className="flex items-center justify-center h-11 w-11 rounded-lg text-muted-foreground hover:bg-muted transition-colors shrink-0 relative"
         aria-label="Switch language"
       >
         <Globe className="h-[18px] w-[18px]" />
@@ -159,13 +159,13 @@ export function Navbar() {
       {/* User Menu */}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <button className="flex items-center gap-2 rounded-xl p-1 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors shrink-0">
+          <button className="flex items-center gap-2 rounded-xl p-1 hover:bg-muted transition-colors shrink-0 min-h-11">
             <UserAvatar
               src={user?.avatar || mockUser.avatar}
               name={user?.name || mockUser.name}
               size="sm"
             />
-            <span className="hidden lg:inline text-sm font-medium text-neutral-700 dark:text-neutral-300 max-w-[120px] truncate">
+            <span className="hidden lg:inline text-sm font-medium text-foreground max-w-[120px] truncate">
               {user?.name || mockUser.name}
             </span>
           </button>
@@ -174,7 +174,7 @@ export function Navbar() {
           <DropdownMenuLabel>
             <div className="flex flex-col gap-0.5">
               <span className="font-medium text-sm">{user?.name || mockUser.name}</span>
-              <span className="text-xs text-neutral-500 font-normal">{user?.email || mockUser.email}</span>
+              <span className="text-xs text-muted-foreground font-normal">{user?.email || mockUser.email}</span>
             </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />

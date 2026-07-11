@@ -97,10 +97,10 @@ export function WalletPage() {
       {/* Header */}
       <motion.div variants={fadeIn} className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+          <h1 className="text-2xl font-bold text-foreground">
             {locale === "ar" ? "المحفظة" : "Wallet"}
           </h1>
-          <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
+          <p className="text-sm text-muted-foreground mt-1">
             {locale === "ar" ? "إدارة رصيدك ومكافآتك" : "Manage your balance and rewards"}
           </p>
         </div>
@@ -127,11 +127,11 @@ export function WalletPage() {
                 </div>
               </div>
               <div className="flex gap-3">
-                <Button variant="secondary" className="bg-white/20 hover:bg-white/30 text-white border-0 backdrop-blur-sm" onClick={() => setShowDeposit(true)}>
+                <Button variant="secondary" className="bg-card/20 hover:bg-card/30 text-white border-0 backdrop-blur-sm" onClick={() => setShowDeposit(true)}>
                   <Plus className="h-4 w-4 me-2" />
                   {locale === "ar" ? "إيداع" : "Deposit"}
                 </Button>
-                <Button variant="secondary" className="bg-white/20 hover:bg-white/30 text-white border-0 backdrop-blur-sm" onClick={() => setShowWithdraw(true)}>
+                <Button variant="secondary" className="bg-card/20 hover:bg-card/30 text-white border-0 backdrop-blur-sm" onClick={() => setShowWithdraw(true)}>
                   <Minus className="h-4 w-4 me-2" />
                   {locale === "ar" ? "سحب" : "Withdraw"}
                 </Button>
@@ -146,7 +146,7 @@ export function WalletPage() {
                 { icon: Gift, label: locale === "ar" ? "مكافآت معلقة" : "Pending Rewards", value: formatPrice(walletData.pendingRewards, locale), color: "text-yellow-300" },
                 { icon: Coins, label: locale === "ar" ? "نقاط الولاء" : "Loyalty Points", value: "2,500", color: "text-blue-300" },
               ].map((stat) => (
-                <div key={stat.label} className="rounded-xl bg-white/10 backdrop-blur-sm p-3">
+                <div key={stat.label} className="rounded-xl bg-card/10 backdrop-blur-sm p-3">
                   <stat.icon className={cn("h-4 w-4 mb-1", stat.color)} />
                   <p className="text-xs text-white/60">{stat.label}</p>
                   <p className="text-sm font-semibold">{stat.value}</p>
@@ -241,7 +241,7 @@ export function WalletPage() {
 
             <div className="space-y-3">
               {filteredTransactions.map((txn) => (
-                <div key={txn.id} className="flex items-center justify-between rounded-xl border border-neutral-200 p-3 hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-900 transition-colors">
+                <div key={txn.id} className="flex items-center justify-between rounded-xl border border-border p-3 hover:bg-background dark:border-neutral-800 dark:hover:bg-neutral-900 transition-colors">
                   <div className="flex items-center gap-3">
                     <div className={cn(
                       "rounded-xl p-2",
@@ -250,10 +250,10 @@ export function WalletPage() {
                       {txn.type === "credit" ? <ArrowDownRight className="h-4 w-4" /> : <ArrowUpRight className="h-4 w-4" />}
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                      <p className="text-sm font-medium text-foreground">
                         {locale === "ar" ? txn.descriptionAr : txn.description}
                       </p>
-                      <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                      <p className="text-xs text-muted-foreground">
                         {locale === "ar" ? txn.categoryAr : txn.category} • {txn.date}
                       </p>
                     </div>
@@ -284,7 +284,7 @@ export function WalletPage() {
           </DialogHeader>
           <div className="space-y-4">
             <div className="space-y-1.5">
-              <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+              <label className="text-sm font-medium text-foreground">
                 {locale === "ar" ? `المبلغ (${currencyLabel(locale)})` : `Amount (${currencyLabel(locale)})`}
               </label>
               <Input
@@ -315,11 +315,11 @@ export function WalletPage() {
             <DialogTitle>{locale === "ar" ? "سحب" : "Withdraw"}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
-            <p className="text-sm text-neutral-500">
-              {locale === "ar" ? "الرصيد المتاح:" : "Available balance:"} <span className="font-semibold text-neutral-900 dark:text-neutral-100">{formatPrice(walletData.balance, locale)}</span>
+            <p className="text-sm text-muted-foreground">
+              {locale === "ar" ? "الرصيد المتاح:" : "Available balance:"} <span className="font-semibold text-foreground">{formatPrice(walletData.balance, locale)}</span>
             </p>
             <div className="space-y-1.5">
-              <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+              <label className="text-sm font-medium text-foreground">
                 {locale === "ar" ? `المبلغ (${currencyLabel(locale)})` : `Amount (${currencyLabel(locale)})`}
               </label>
               <Input

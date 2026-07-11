@@ -40,7 +40,7 @@ export function AdminUsersPage() {
             <UserAvatar src={row.original.avatar} name={row.original.name} size="sm" />
             <div>
               <p className="text-sm font-medium">{row.original.name}</p>
-              <p className="text-xs text-neutral-500">{row.original.email}</p>
+              <p className="text-xs text-muted-foreground">{row.original.email}</p>
             </div>
           </div>
         ),
@@ -67,7 +67,7 @@ export function AdminUsersPage() {
         accessorKey: "location",
         header: locale === "ar" ? "الموقع" : "Location",
         cell: ({ row }) => (
-          <span className="text-sm text-neutral-500">{row.original.location}</span>
+          <span className="text-sm text-muted-foreground">{row.original.location}</span>
         ),
       },
       {
@@ -104,10 +104,10 @@ export function AdminUsersPage() {
     <motion.div initial="initial" animate="animate" variants={fadeIn} className="space-y-6">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+          <h1 className="text-2xl font-bold text-foreground">
             {locale === "ar" ? "إدارة المستخدمين" : "User Management"}
           </h1>
-          <p className="text-sm text-neutral-500 mt-1">
+          <p className="text-sm text-muted-foreground mt-1">
             {mockEmployees.length} {locale === "ar" ? "مستخدم" : "users"}
           </p>
         </div>

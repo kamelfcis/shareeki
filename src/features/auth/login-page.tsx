@@ -66,10 +66,10 @@ export function LoginPage() {
 
   const inputClass = (hasError: boolean) =>
     cn(
-      "h-12 w-full rounded-xl border bg-white/5 text-[15px] text-white shadow-sm transition-all duration-200",
-      "placeholder:text-neutral-500",
-      "hover:border-white/20 hover:bg-white/[0.07]",
-      "focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500/50 focus:bg-white/[0.07]",
+      "h-12 w-full rounded-xl border bg-card/5 text-[15px] text-white shadow-sm transition-all duration-200",
+      "placeholder:text-muted-foreground",
+      "hover:border-white/20 hover:bg-card/[0.07]",
+      "focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500/50 focus:bg-card/[0.07]",
       "ps-11 pe-4",
       hasError
         ? "border-red-500/60 focus:ring-red-500/20 focus:border-red-500"
@@ -77,13 +77,13 @@ export function LoginPage() {
     );
 
   return (
-    <div className="w-full rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 sm:p-8 shadow-2xl shadow-brand-900/20">
+    <div className="w-full rounded-2xl border border-white/10 bg-card/5 backdrop-blur-xl p-6 sm:p-8 shadow-2xl shadow-brand-900/20">
       {/* Header */}
       <div className="mb-8">
         <h2 className="text-[28px] font-bold text-white tracking-tight">
           {locale === "ar" ? "مرحباً بك" : "Welcome back"}
         </h2>
-        <p className="mt-2 text-[15px] text-neutral-400">
+        <p className="mt-2 text-[15px] text-muted-foreground">
           {locale === "ar"
             ? "سجل الدخول للوصول إلى حسابك"
             : "Sign in to access your account"}
@@ -98,7 +98,7 @@ export function LoginPage() {
             {locale === "ar" ? "البريد الإلكتروني" : "Email address"}
           </label>
           <div className="relative">
-            <Mail className="pointer-events-none absolute top-1/2 -translate-y-1/2 h-[18px] w-[18px] text-neutral-500 start-3.5" />
+            <Mail className="pointer-events-none absolute top-1/2 -translate-y-1/2 h-[18px] w-[18px] text-muted-foreground start-3.5" />
             <input
               {...register("email")}
               type="email"
@@ -125,7 +125,7 @@ export function LoginPage() {
             </Link>
           </div>
           <div className="relative">
-            <Lock className="pointer-events-none absolute top-1/2 -translate-y-1/2 h-[18px] w-[18px] text-neutral-500 start-3.5" />
+            <Lock className="pointer-events-none absolute top-1/2 -translate-y-1/2 h-[18px] w-[18px] text-muted-foreground start-3.5" />
             <input
               {...register("password")}
               type={showPassword ? "text" : "password"}
@@ -135,7 +135,7 @@ export function LoginPage() {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute top-1/2 -translate-y-1/2 flex items-center justify-center w-10 text-neutral-500 hover:text-neutral-300 transition-colors end-0"
+              className="absolute top-1/2 -translate-y-1/2 flex items-center justify-center w-10 text-muted-foreground hover:text-neutral-300 transition-colors end-0"
               tabIndex={-1}
             >
               {showPassword ? <EyeOff className="h-[18px] w-[18px]" /> : <Eye className="h-[18px] w-[18px]" />}
@@ -161,12 +161,12 @@ export function LoginPage() {
             >
               <span
                 className={cn(
-                  "inline-block h-4 w-4 rounded-full bg-white shadow-sm transition-transform duration-200",
+                  "inline-block h-4 w-4 rounded-full bg-card shadow-sm transition-transform duration-200",
                   rememberMe ? "translate-x-4 rtl:-translate-x-4" : "translate-x-0.5 rtl:-translate-x-0.5"
                 )}
               />
             </button>
-            <span className="text-[14px] text-neutral-400 select-none">
+            <span className="text-[14px] text-muted-foreground select-none">
               {locale === "ar" ? "تذكرني" : "Remember me"}
             </span>
           </label>
@@ -189,14 +189,14 @@ export function LoginPage() {
           <div className="w-full border-t border-white/10" />
         </div>
         <div className="relative flex justify-center text-[13px]">
-          <span className="bg-transparent px-4 text-neutral-500">
+          <span className="bg-transparent px-4 text-muted-foreground">
             {locale === "ar" ? "أو" : "or"}
           </span>
         </div>
       </div>
 
       {/* Sign Up Link */}
-      <p className="text-center text-[14px] text-neutral-400">
+      <p className="text-center text-[14px] text-muted-foreground">
         {locale === "ar" ? "ليس لديك حساب؟" : "Don't have an account?"}{" "}
         <Link
           to="/auth/register"
@@ -207,23 +207,23 @@ export function LoginPage() {
       </p>
 
       {/* Demo Credentials */}
-      <div className="mt-8 rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-sm p-4">
+      <div className="mt-8 rounded-xl border border-white/10 bg-card/[0.03] backdrop-blur-sm p-4">
         <div className="flex items-start gap-2.5">
           <Info className="h-4 w-4 text-brand-400/70 mt-0.5 shrink-0" />
           <div className="text-[13px] space-y-1.5">
             <p className="font-medium text-neutral-300">
               {locale === "ar" ? "حسابات تجريبية:" : "Demo accounts:"}
             </p>
-            <div className="space-y-1 text-neutral-500">
+            <div className="space-y-1 text-muted-foreground">
               <p>
-                <span className="font-medium text-neutral-400">Employee:</span>{" "}
+                <span className="font-medium text-muted-foreground">Employee:</span>{" "}
                 ahmed.hassan@shareky.com
               </p>
               <p>
-                <span className="font-medium text-neutral-400">Admin:</span>{" "}
+                <span className="font-medium text-muted-foreground">Admin:</span>{" "}
                 admin@shareky.com
               </p>
-              <p className="text-neutral-600">
+              <p className="text-muted-foreground">
                 Password: password123
               </p>
             </div>

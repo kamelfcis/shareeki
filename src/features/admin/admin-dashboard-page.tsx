@@ -92,10 +92,10 @@ export function AdminDashboardPage() {
     >
       {/* Header */}
       <motion.div variants={fadeIn}>
-        <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+        <h1 className="text-2xl font-bold text-foreground">
           {locale === "ar" ? "لوحة تحكم المشرف" : "Admin Dashboard"}
         </h1>
-        <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
+        <p className="text-sm text-muted-foreground mt-1">
           {locale === "ar" ? "نظرة عامة على المنصة" : "Platform overview"}
         </p>
       </motion.div>
@@ -199,9 +199,9 @@ export function AdminDashboardPage() {
                 <div key={cat.name} className="flex items-center justify-between text-sm">
                   <div className="flex items-center gap-2 min-w-0">
                     <div className="h-2.5 w-2.5 rounded-full shrink-0" style={{ backgroundColor: cat.color }} />
-                    <span className="text-neutral-600 dark:text-neutral-400 truncate">{cat.name}</span>
+                    <span className="text-muted-foreground truncate">{cat.name}</span>
                   </div>
-                  <span className="font-medium text-neutral-900 dark:text-neutral-100 shrink-0 ms-2">{cat.value}%</span>
+                  <span className="font-medium text-foreground shrink-0 ms-2">{cat.value}%</span>
                 </div>
               ))}
             </div>
@@ -256,14 +256,14 @@ export function AdminDashboardPage() {
                     <activity.icon className="h-4 w-4" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                    <p className="text-sm font-medium text-foreground">
                       {activity.user}
                     </p>
-                    <p className="text-xs text-neutral-500 dark:text-neutral-400 truncate">
+                    <p className="text-xs text-muted-foreground truncate">
                       {activity.action}
                     </p>
                   </div>
-                  <span className="text-xs text-neutral-400 dark:text-neutral-500 shrink-0">{activity.time}</span>
+                  <span className="text-xs text-muted-foreground dark:text-muted-foreground shrink-0">{activity.time}</span>
                 </div>
               ))}
             </div>
@@ -285,12 +285,12 @@ export function AdminDashboardPage() {
                 <Link
                   key={action.href}
                   to={action.href}
-                  className="flex flex-col items-center gap-2.5 rounded-xl border border-neutral-200 p-4 transition-all hover:shadow-md hover:border-neutral-300 hover:scale-[1.02] dark:border-neutral-800 dark:hover:border-neutral-700 active:scale-[0.98]"
+                  className="flex flex-col items-center gap-2.5 rounded-xl border border-border p-4 transition-all hover:shadow-md hover:border-neutral-300 hover:scale-[1.02] dark:border-neutral-800 dark:hover:border-neutral-700 active:scale-[0.98]"
                 >
                   <div className={cn("rounded-xl p-2.5", action.color)}>
                     <action.icon className="h-5 w-5" />
                   </div>
-                  <span className="text-xs font-medium text-neutral-700 dark:text-neutral-300 text-center">
+                  <span className="text-xs font-medium text-foreground text-center">
                     {locale === "ar" ? action.labelAr : action.label}
                   </span>
                 </Link>

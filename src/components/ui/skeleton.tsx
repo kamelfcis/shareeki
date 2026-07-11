@@ -4,7 +4,8 @@ import { cn } from "@/utils";
 function Skeleton({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={cn("animate-pulse rounded-xl bg-neutral-200 dark:bg-neutral-800", className)}
+      className={cn("animate-pulse rounded-xl bg-muted", className)}
+      aria-hidden="true"
       {...props}
     />
   );

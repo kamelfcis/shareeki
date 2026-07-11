@@ -36,17 +36,17 @@ const SheetContent = React.forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        "fixed z-50 gap-4 bg-white p-6 shadow-2xl transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500 data-[state=open]:animate-in data-[state=closed]:animate-out dark:bg-neutral-900",
-        side === "right" && "inset-y-0 right-0 h-full w-3/4 max-w-sm border-l border-neutral-200 data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-md dark:border-neutral-800",
-        side === "left" && "inset-y-0 left-0 h-full w-3/4 max-w-sm border-r border-neutral-200 data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left sm:max-w-md dark:border-neutral-800",
-        side === "top" && "inset-x-0 top-0 border-b border-neutral-200 data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top dark:border-neutral-800",
-        side === "bottom" && "inset-x-0 bottom-0 border-t border-neutral-200 data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom dark:border-neutral-800",
+        "fixed z-50 gap-4 bg-card p-4 sm:p-6 shadow-2xl transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500 data-[state=open]:animate-in data-[state=closed]:animate-out text-foreground",
+        side === "right" && "inset-y-0 right-0 h-full w-[min(100%,20rem)] border-l border-border data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-md",
+        side === "left" && "inset-y-0 left-0 h-full w-[min(100%,20rem)] border-r border-border data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left sm:max-w-md",
+        side === "top" && "inset-x-0 top-0 border-b border-border data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top",
+        side === "bottom" && "inset-x-0 bottom-0 border-t border-border data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom",
         className
       )}
       {...props}
     >
       {children}
-      <DialogPrimitive.Close className="absolute end-4 top-4 rounded-lg p-1 opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-brand-500">
+      <DialogPrimitive.Close className="absolute end-4 top-4 rounded-lg p-1.5 opacity-70 transition-opacity hover:opacity-100 hover:bg-muted focus:outline-none focus:ring-2 focus:ring-ring min-h-9 min-w-9 flex items-center justify-center" aria-label="Close">
         <X className="h-4 w-4" />
       </DialogPrimitive.Close>
     </DialogPrimitive.Content>
@@ -60,7 +60,7 @@ const SheetHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElemen
 SheetHeader.displayName = "SheetHeader";
 
 const SheetFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div className={cn("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2", className)} {...props} />
+  <div className={cn("flex flex-col-reverse sm:flex-row sm:justify-end gap-3", className)} {...props} />
 );
 SheetFooter.displayName = "SheetFooter";
 
@@ -70,7 +70,7 @@ const SheetTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Title
     ref={ref}
-    className={cn("text-lg font-semibold text-neutral-900 dark:text-neutral-100", className)}
+    className={cn("text-lg font-semibold text-foreground", className)}
     {...props}
   />
 ));
@@ -82,7 +82,7 @@ const SheetDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Description
     ref={ref}
-    className={cn("text-sm text-neutral-500 dark:text-neutral-400", className)}
+    className={cn("text-sm text-muted-foreground", className)}
     {...props}
   />
 ));

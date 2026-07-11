@@ -14,17 +14,17 @@ export function MainLayout() {
   useKeyboardShortcuts();
 
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950">
+    <div className="min-h-dvh bg-background text-foreground overflow-x-hidden">
       <Sidebar />
       <div
         className={cn(
-          "transition-all duration-300",
+          "transition-all duration-300 min-w-0",
           isRTL ? "lg:mr-[280px]" : "lg:ml-[280px]",
           isCollapsed && (isRTL ? "lg:mr-[72px]" : "lg:ml-[72px]")
         )}
       >
         <Navbar />
-        <main className="p-4 md:p-6 lg:p-8">
+        <main className="p-4 sm:p-6 lg:p-8 max-w-[1600px] mx-auto w-full">
           <PageTransition>
             <Outlet />
           </PageTransition>

@@ -57,32 +57,32 @@ export function RegisterPage() {
   };
 
   const inputClasses = cn(
-    "h-12 w-full rounded-xl border bg-white text-[15px] text-neutral-900 shadow-sm transition-all duration-200",
-    "placeholder:text-neutral-400",
+    "h-12 w-full rounded-xl border bg-card text-[15px] text-foreground shadow-sm transition-all duration-200",
+    "placeholder:text-muted-foreground",
     "hover:border-neutral-300 hover:shadow-md",
     "focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500",
     "dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100 dark:hover:border-neutral-600",
-    "dark:placeholder:text-neutral-500",
+    "dark:placeholder:text-muted-foreground",
     "dark:focus:ring-brand-500/20 dark:focus:border-brand-500",
-    "border-neutral-200"
+    "border-border"
   );
 
   const selectClasses = cn(
-    "h-12 w-full rounded-xl border bg-white text-[15px] text-neutral-900 shadow-sm transition-all duration-200",
+    "h-12 w-full rounded-xl border bg-card text-[15px] text-foreground shadow-sm transition-all duration-200",
     "hover:border-neutral-300 hover:shadow-md",
     "focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500",
     "dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100 dark:hover:border-neutral-600",
     "dark:focus:ring-brand-500/20 dark:focus:border-brand-500",
-    "border-neutral-200"
+    "border-border"
   );
 
   return (
     <div className="w-full">
       <div className="mb-8">
-        <h2 className="text-[28px] font-bold text-neutral-900 dark:text-neutral-100 tracking-tight">
+        <h2 className="text-[28px] font-bold text-foreground tracking-tight">
           {locale === "ar" ? "إنشاء حساب جديد" : "Create an account"}
         </h2>
-        <p className="mt-2 text-[15px] text-neutral-500 dark:text-neutral-400">
+        <p className="mt-2 text-[15px] text-muted-foreground">
           {locale === "ar"
             ? "سجل للحصول على منصة شريكي"
             : "Register to access the Shareky platform"}
@@ -92,11 +92,11 @@ export function RegisterPage() {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         {/* Full Name */}
         <div className="space-y-1.5">
-          <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">
+          <label className="block text-sm font-medium text-foreground">
             {locale === "ar" ? "الاسم الكامل" : "Full Name"}
           </label>
           <div className="relative">
-            <User className="pointer-events-none absolute top-1/2 -translate-y-1/2 h-[18px] w-[18px] text-neutral-400 dark:text-neutral-500 start-3.5" />
+            <User className="pointer-events-none absolute top-1/2 -translate-y-1/2 h-[18px] w-[18px] text-muted-foreground dark:text-muted-foreground start-3.5" />
             <input
               {...register("name")}
               type="text"
@@ -109,11 +109,11 @@ export function RegisterPage() {
 
         {/* Email */}
         <div className="space-y-1.5">
-          <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">
+          <label className="block text-sm font-medium text-foreground">
             {locale === "ar" ? "البريد الإلكتروني" : "Work Email"}
           </label>
           <div className="relative">
-            <Mail className="pointer-events-none absolute top-1/2 -translate-y-1/2 h-[18px] w-[18px] text-neutral-400 dark:text-neutral-500 start-3.5" />
+            <Mail className="pointer-events-none absolute top-1/2 -translate-y-1/2 h-[18px] w-[18px] text-muted-foreground dark:text-muted-foreground start-3.5" />
             <input
               {...register("email")}
               type="email"
@@ -127,7 +127,7 @@ export function RegisterPage() {
         {/* Employee ID + Department */}
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-1.5">
-            <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">
+            <label className="block text-sm font-medium text-foreground">
               {locale === "ar" ? "رقم الموظف" : "Employee ID"}
             </label>
             <input
@@ -140,7 +140,7 @@ export function RegisterPage() {
           </div>
 
           <div className="space-y-1.5">
-            <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">
+            <label className="block text-sm font-medium text-foreground">
               {locale === "ar" ? "القسم" : "Department"}
             </label>
             <select
@@ -160,11 +160,11 @@ export function RegisterPage() {
 
         {/* Password */}
         <div className="space-y-1.5">
-          <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">
+          <label className="block text-sm font-medium text-foreground">
             {locale === "ar" ? "كلمة المرور" : "Password"}
           </label>
           <div className="relative">
-            <Lock className="pointer-events-none absolute top-1/2 -translate-y-1/2 h-[18px] w-[18px] text-neutral-400 dark:text-neutral-500 start-3.5" />
+            <Lock className="pointer-events-none absolute top-1/2 -translate-y-1/2 h-[18px] w-[18px] text-muted-foreground dark:text-muted-foreground start-3.5" />
             <input
               {...register("password")}
               type="password"
@@ -177,11 +177,11 @@ export function RegisterPage() {
 
         {/* Confirm Password */}
         <div className="space-y-1.5">
-          <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">
+          <label className="block text-sm font-medium text-foreground">
             {locale === "ar" ? "تأكيد كلمة المرور" : "Confirm Password"}
           </label>
           <div className="relative">
-            <Lock className="pointer-events-none absolute top-1/2 -translate-y-1/2 h-[18px] w-[18px] text-neutral-400 dark:text-neutral-500 start-3.5" />
+            <Lock className="pointer-events-none absolute top-1/2 -translate-y-1/2 h-[18px] w-[18px] text-muted-foreground dark:text-muted-foreground start-3.5" />
             <input
               {...register("confirmPassword")}
               type="password"
@@ -204,7 +204,7 @@ export function RegisterPage() {
       </form>
 
       <div className="mt-6 text-center">
-        <p className="text-[14px] text-neutral-500 dark:text-neutral-400">
+        <p className="text-[14px] text-muted-foreground">
           {locale === "ar" ? "لديك حساب بالفعل؟" : "Already have an account?"}{" "}
           <Link
             to="/auth/login"

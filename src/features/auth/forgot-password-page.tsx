@@ -35,12 +35,12 @@ export function ForgotPasswordPage() {
   };
 
   const inputClasses = cn(
-    "h-12 w-full rounded-xl border border-neutral-200 bg-white text-[15px] text-neutral-900 shadow-sm transition-all duration-200",
-    "placeholder:text-neutral-400",
+    "h-12 w-full rounded-xl border border-border bg-card text-[15px] text-foreground shadow-sm transition-all duration-200",
+    "placeholder:text-muted-foreground",
     "hover:border-neutral-300 hover:shadow-md",
     "focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500",
     "dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100 dark:hover:border-neutral-600",
-    "dark:placeholder:text-neutral-500",
+    "dark:placeholder:text-muted-foreground",
     "dark:focus:ring-brand-500/20 dark:focus:border-brand-500"
   );
 
@@ -50,15 +50,15 @@ export function ForgotPasswordPage() {
         <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-100 dark:bg-brand-900/50 mx-auto">
           <CheckCircle className="h-8 w-8 text-brand-600 dark:text-brand-400" />
         </div>
-        <h2 className="text-[28px] font-bold text-neutral-900 dark:text-neutral-100 tracking-tight">
+        <h2 className="text-[28px] font-bold text-foreground tracking-tight">
           {locale === "ar" ? "تحقق من بريدك الإلكتروني" : "Check your email"}
         </h2>
-        <p className="mt-2 text-[15px] text-neutral-500 dark:text-neutral-400">
+        <p className="mt-2 text-[15px] text-muted-foreground">
           {locale === "ar"
             ? `أرسلنا رمز إعادة تعيين كلمة المرور إلى`
             : `We've sent a password reset code to`}
         </p>
-        <p className="mt-1 text-[15px] font-medium text-neutral-700 dark:text-neutral-300">{email}</p>
+        <p className="mt-1 text-[15px] font-medium text-foreground">{email}</p>
         <div className="mt-8 space-y-3">
           <Button
             onClick={() => navigate("/auth/reset-password")}
@@ -81,10 +81,10 @@ export function ForgotPasswordPage() {
         <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-100 dark:bg-brand-900/50 mx-auto lg:mx-0">
           <Mail className="h-8 w-8 text-brand-600 dark:text-brand-400" />
         </div>
-        <h2 className="text-[28px] font-bold text-neutral-900 dark:text-neutral-100 tracking-tight">
+        <h2 className="text-[28px] font-bold text-foreground tracking-tight">
           {locale === "ar" ? "نسيت كلمة المرور؟" : "Forgot your password?"}
         </h2>
-        <p className="mt-2 text-[15px] text-neutral-500 dark:text-neutral-400">
+        <p className="mt-2 text-[15px] text-muted-foreground">
           {locale === "ar"
             ? "أدخل بريدك الإلكتروني وسنرسل لك رمز إعادة التعيين"
             : "Enter your email and we'll send you a reset code"}
@@ -93,11 +93,11 @@ export function ForgotPasswordPage() {
 
       <form onSubmit={handleSubmit} className="space-y-5">
         <div className="space-y-1.5">
-          <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">
+          <label className="block text-sm font-medium text-foreground">
             {locale === "ar" ? "البريد الإلكتروني" : "Email address"}
           </label>
           <div className="relative">
-            <Mail className="pointer-events-none absolute top-1/2 -translate-y-1/2 h-[18px] w-[18px] text-neutral-400 dark:text-neutral-500 start-3.5" />
+            <Mail className="pointer-events-none absolute top-1/2 -translate-y-1/2 h-[18px] w-[18px] text-muted-foreground dark:text-muted-foreground start-3.5" />
             <input
               type="email"
               value={email}

@@ -35,11 +35,11 @@ const statusConfig = {
   open: { color: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200", label: "Open", labelAr: "مفتوحة" },
   in_progress: { color: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200", label: "In Progress", labelAr: "قيد المعالجة" },
   resolved: { color: "bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200", label: "Resolved", labelAr: "محلولة" },
-  closed: { color: "bg-neutral-100 text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400", label: "Closed", labelAr: "مغلقة" },
+  closed: { color: "bg-neutral-100 text-muted-foreground dark:bg-neutral-800 dark:text-muted-foreground", label: "Closed", labelAr: "مغلقة" },
 };
 
 const priorityConfig = {
-  low: { color: "text-neutral-500", label: "Low", labelAr: "منخفض" },
+  low: { color: "text-muted-foreground", label: "Low", labelAr: "منخفض" },
   medium: { color: "text-yellow-500", label: "Medium", labelAr: "متوسط" },
   high: { color: "text-orange-500", label: "High", labelAr: "عالي" },
   urgent: { color: "text-red-500", label: "Urgent", labelAr: "عاجل" },
@@ -104,10 +104,10 @@ export function SupportPage() {
       {/* Header */}
       <motion.div variants={fadeIn} className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+          <h1 className="text-2xl font-bold text-foreground">
             {locale === "ar" ? "الدعم" : "Support"}
           </h1>
-          <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
+          <p className="text-sm text-muted-foreground mt-1">
             {locale === "ar" ? "احصل على المساعدة التي تحتاجها" : "Get the help you need"}
           </p>
         </div>
@@ -129,10 +129,10 @@ export function SupportPage() {
               <div className={cn("inline-flex rounded-xl p-2.5 mb-3", item.color)}>
                 <item.icon className="h-5 w-5" />
               </div>
-              <h3 className="font-semibold text-neutral-900 dark:text-neutral-100 group-hover:text-brand-600 transition-colors">
+              <h3 className="font-semibold text-foreground group-hover:text-brand-600 transition-colors">
                 {item.title}
               </h3>
-              <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1">{item.desc}</p>
+              <p className="text-xs text-muted-foreground mt-1">{item.desc}</p>
             </CardContent>
           </Card>
         ))}
@@ -182,12 +182,12 @@ export function SupportPage() {
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-1">
-                            <h3 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+                            <h3 className="text-sm font-semibold text-foreground">
                               {locale === "ar" ? ticket.subjectAr : ticket.subject}
                             </h3>
                             <Badge variant="outline" className="text-[10px]">{ticket.id}</Badge>
                           </div>
-                          <div className="flex items-center gap-3 text-xs text-neutral-500 dark:text-neutral-400">
+                          <div className="flex items-center gap-3 text-xs text-muted-foreground">
                             <Badge variant="secondary" className="text-[10px]">
                               {locale === "ar" ? ticket.categoryAr : ticket.category}
                             </Badge>
@@ -201,7 +201,7 @@ export function SupportPage() {
                           <Badge className={cn("text-xs", status.color)}>
                             {locale === "ar" ? status.labelAr : status.label}
                           </Badge>
-                          <ChevronRight className={cn("h-4 w-4 text-neutral-400 group-hover:text-brand-500", isRTL && "rotate-180")} />
+                          <ChevronRight className={cn("h-4 w-4 text-muted-foreground group-hover:text-brand-500", isRTL && "rotate-180")} />
                         </div>
                       </div>
                     </CardContent>
@@ -227,12 +227,12 @@ export function SupportPage() {
               <CardContent className="p-4">
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
-                    <h3 className="text-sm font-medium text-neutral-900 dark:text-neutral-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+                    <h3 className="text-sm font-medium text-foreground group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                       {faq.q}
                     </h3>
-                    <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 leading-relaxed">{faq.a}</p>
+                    <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{faq.a}</p>
                   </div>
-                  <ChevronRight className={cn("h-4 w-4 text-neutral-300 dark:text-neutral-600 shrink-0 mt-1 group-hover:text-brand-500 transition-colors", isRTL && "rotate-180")} />
+                  <ChevronRight className={cn("h-4 w-4 text-neutral-300 dark:text-muted-foreground shrink-0 mt-1 group-hover:text-brand-500 transition-colors", isRTL && "rotate-180")} />
                 </div>
               </CardContent>
             </Card>
@@ -250,14 +250,14 @@ export function SupportPage() {
                   <Mail className="h-8 w-8 text-brand-600 dark:text-brand-400" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+                  <h3 className="text-lg font-semibold text-foreground">
                     {locale === "ar" ? "تواصل معنا" : "Get in Touch"}
                   </h3>
-                  <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
+                  <p className="text-sm text-muted-foreground mt-1">
                     {locale === "ar" ? "فريق الدعم متاح من السبت إلى الخميس" : "Support team available Sat-Thu"}
                   </p>
                 </div>
-                <div className="space-y-3 text-sm text-neutral-600 dark:text-neutral-400">
+                <div className="space-y-3 text-sm text-muted-foreground">
                   <div className="flex items-center justify-center gap-2">
                     <Mail className="h-4 w-4 text-brand-500" />
                     <a href="mailto:support@shareky.com" className="hover:text-brand-600 transition-colors">support@shareky.com</a>
@@ -289,7 +289,7 @@ export function SupportPage() {
           </DialogHeader>
           <div className="space-y-4">
             <div className="space-y-1.5">
-              <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+              <label className="text-sm font-medium text-foreground">
                 {locale === "ar" ? "الموضوع" : "Subject"}
               </label>
               <Input
@@ -300,13 +300,13 @@ export function SupportPage() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                <label className="text-sm font-medium text-foreground">
                   {locale === "ar" ? "الفئة" : "Category"}
                 </label>
                 <select
                   value={newTicket.category}
                   onChange={(e) => setNewTicket((p) => ({ ...p, category: e.target.value }))}
-                  className="flex h-10 w-full rounded-xl border border-neutral-200 bg-white px-3 py-2 text-sm dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100"
+                  className="flex h-10 w-full rounded-xl border border-border bg-card px-3 py-2 text-sm dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100"
                 >
                   <option value="general">{locale === "ar" ? "عام" : "General"}</option>
                   <option value="technical">{locale === "ar" ? "فني" : "Technical"}</option>
@@ -315,13 +315,13 @@ export function SupportPage() {
                 </select>
               </div>
               <div className="space-y-1.5">
-                <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                <label className="text-sm font-medium text-foreground">
                   {locale === "ar" ? "الأولوية" : "Priority"}
                 </label>
                 <select
                   value={newTicket.priority}
                   onChange={(e) => setNewTicket((p) => ({ ...p, priority: e.target.value }))}
-                  className="flex h-10 w-full rounded-xl border border-neutral-200 bg-white px-3 py-2 text-sm dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100"
+                  className="flex h-10 w-full rounded-xl border border-border bg-card px-3 py-2 text-sm dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100"
                 >
                   <option value="low">{locale === "ar" ? "منخفضة" : "Low"}</option>
                   <option value="medium">{locale === "ar" ? "متوسطة" : "Medium"}</option>
@@ -331,7 +331,7 @@ export function SupportPage() {
               </div>
             </div>
             <div className="space-y-1.5">
-              <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+              <label className="text-sm font-medium text-foreground">
                 {locale === "ar" ? "الرسالة" : "Message"}
               </label>
               <textarea
@@ -339,7 +339,7 @@ export function SupportPage() {
                 onChange={(e) => setNewTicket((p) => ({ ...p, message: e.target.value }))}
                 placeholder={locale === "ar" ? "اشرح مشكلتك بالتفصيل..." : "Describe your issue in detail..."}
                 rows={4}
-                className="flex w-full rounded-xl border border-neutral-200 bg-white px-3 py-2 text-sm placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100 dark:placeholder:text-neutral-500"
+                className="flex w-full rounded-xl border border-border bg-card px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100 dark:placeholder:text-muted-foreground"
               />
             </div>
           </div>
@@ -367,7 +367,7 @@ export function SupportPage() {
                 </DialogTitle>
               </DialogHeader>
               <div className="space-y-4">
-                <div className="flex items-center gap-2 text-sm text-neutral-500">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <Badge className={cn("text-xs", statusConfig[selectedTicket.status].color)}>
                     {locale === "ar" ? statusConfig[selectedTicket.status].labelAr : statusConfig[selectedTicket.status].label}
                   </Badge>
@@ -375,14 +375,14 @@ export function SupportPage() {
                     {locale === "ar" ? priorityConfig[selectedTicket.priority].labelAr : priorityConfig[selectedTicket.priority].label}
                   </span>
                 </div>
-                <div className="rounded-xl border border-neutral-200 dark:border-neutral-800 p-4 bg-neutral-50 dark:bg-neutral-900">
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                <div className="rounded-xl border border-border p-4 bg-muted">
+                  <p className="text-sm text-muted-foreground">
                     {locale === "ar" ? selectedTicket.subjectAr : selectedTicket.subject}
                   </p>
-                  <p className="text-xs text-neutral-400 mt-2">{selectedTicket.updatedAt}</p>
+                  <p className="text-xs text-muted-foreground mt-2">{selectedTicket.updatedAt}</p>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                  <label className="text-sm font-medium text-foreground">
                     {locale === "ar" ? "رد سريع" : "Quick Reply"}
                   </label>
                   <div className="flex gap-2">

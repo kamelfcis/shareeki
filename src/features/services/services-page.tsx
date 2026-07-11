@@ -77,10 +77,10 @@ export function ServicesPage() {
       {/* Header */}
       <motion.div variants={fadeIn} className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+          <h1 className="text-2xl font-bold text-foreground">
             {locale === "ar" ? "الخدمات" : "Services"}
           </h1>
-          <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
+          <p className="text-sm text-muted-foreground mt-1">
             {locale === "ar" ? "اكتشف الخدمات المتاحة لك" : "Discover services available to you"}
           </p>
         </div>
@@ -167,7 +167,7 @@ export function ServicesPage() {
                       size="icon-sm"
                       onClick={(e) => { e.stopPropagation(); toggleFavorite(service.id); }}
                       className={cn(
-                        "absolute top-3 end-3 h-8 w-8 rounded-full bg-white/90 backdrop-blur-sm",
+                        "absolute top-3 end-3 h-8 w-8 rounded-full bg-card/90 backdrop-blur-sm",
                         favorites.includes(service.id) && "text-red-500"
                       )}
                     >
@@ -179,26 +179,26 @@ export function ServicesPage() {
                       </Badge>
                     )}
                     <div className="absolute bottom-3 left-3 right-3">
-                      <Badge variant="secondary" className="bg-white/90 backdrop-blur-sm text-neutral-700 border-0">
+                      <Badge variant="secondary" className="bg-card/90 backdrop-blur-sm text-foreground border-0">
                         {locale === "ar" ? service.categoryAr : service.category}
                       </Badge>
                     </div>
                   </div>
                   <CardContent className="p-4">
                     <div className="flex items-start justify-between gap-2 mb-2">
-                      <h3 className="font-semibold text-neutral-900 dark:text-neutral-100 line-clamp-1">
+                      <h3 className="font-semibold text-foreground line-clamp-1">
                         {locale === "ar" ? service.nameAr : service.name}
                       </h3>
                       <div className="flex items-center gap-1 shrink-0">
                         <Star className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400" />
                         <span className="text-xs font-medium">{service.rating}</span>
-                        <span className="text-xs text-neutral-400">({service.reviews})</span>
+                        <span className="text-xs text-muted-foreground">({service.reviews})</span>
                       </div>
                     </div>
-                    <p className="text-xs text-neutral-500 dark:text-neutral-400 line-clamp-2 mb-3">
+                    <p className="text-xs text-muted-foreground line-clamp-2 mb-3">
                       {locale === "ar" ? service.descriptionAr : service.description}
                     </p>
-                    <div className="flex items-center gap-1 text-xs text-neutral-500 mb-3">
+                    <div className="flex items-center gap-1 text-xs text-muted-foreground mb-3">
                       <MapPin className="h-3 w-3" />
                       <span>{locale === "ar" ? service.providerAr : service.provider}</span>
                     </div>
@@ -206,7 +206,7 @@ export function ServicesPage() {
                       <div>
                         <span className="text-lg font-bold text-brand-600">{formatPrice(service.price, locale)}</span>
                         {service.originalPrice && (
-                          <span className="ms-1 text-sm text-neutral-400 line-through">
+                          <span className="ms-1 text-sm text-muted-foreground line-through">
                             {formatPrice(service.originalPrice, locale)}
                           </span>
                         )}
@@ -241,7 +241,7 @@ export function ServicesPage() {
                               <Badge variant="secondary" className="mb-1 text-[10px]">
                                 {locale === "ar" ? service.categoryAr : service.category}
                               </Badge>
-                              <h3 className="font-semibold text-neutral-900 dark:text-neutral-100">
+                              <h3 className="font-semibold text-foreground">
                                 {locale === "ar" ? service.nameAr : service.name}
                               </h3>
                             </div>
@@ -250,7 +250,7 @@ export function ServicesPage() {
                               <span className="text-xs font-medium">{service.rating}</span>
                             </div>
                           </div>
-                          <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 line-clamp-1">
+                          <p className="text-xs text-muted-foreground mt-1 line-clamp-1">
                             {locale === "ar" ? service.descriptionAr : service.description}
                           </p>
                         </div>
@@ -258,7 +258,7 @@ export function ServicesPage() {
                           <div className="flex items-center gap-3">
                             <span className="text-lg font-bold text-brand-600">{formatPrice(service.price, locale)}</span>
                             {service.originalPrice && (
-                              <span className="text-sm text-neutral-400 line-through">{formatPrice(service.originalPrice, locale)}</span>
+                              <span className="text-sm text-muted-foreground line-through">{formatPrice(service.originalPrice, locale)}</span>
                             )}
                           </div>
                           <Button size="sm" className="rounded-xl" onClick={(e) => { e.stopPropagation(); setShowBooking(service.id); }}>
@@ -284,24 +284,24 @@ export function ServicesPage() {
               <DialogTitle>{locale === "ar" ? "حجز خدمة" : "Book Service"}</DialogTitle>
             </DialogHeader>
             <div className="space-y-4">
-              <div className="flex items-center gap-3 p-3 rounded-xl bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800">
+              <div className="flex items-center gap-3 p-3 rounded-xl bg-muted border border-border">
                 <img src={bookedService.image} alt="" className="h-14 w-14 rounded-lg object-cover" />
                 <div>
-                  <h4 className="font-medium text-neutral-900 dark:text-neutral-100">{locale === "ar" ? bookedService.nameAr : bookedService.name}</h4>
+                  <h4 className="font-medium text-foreground">{locale === "ar" ? bookedService.nameAr : bookedService.name}</h4>
                   <p className="text-sm text-brand-600 font-semibold">{formatPrice(bookedService.price, locale)}</p>
                 </div>
               </div>
               <div className="space-y-1.5">
-                <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                <label className="text-sm font-medium text-foreground">
                   {locale === "ar" ? "التاريخ" : "Date"}
                 </label>
                 <div className="relative">
-                  <Calendar className="absolute start-3 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-400" />
+                  <Calendar className="absolute start-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <input
                     type="date"
                     value={bookingDate}
                     onChange={(e) => setBookingDate(e.target.value)}
-                    className="flex h-10 w-full rounded-xl border border-neutral-200 bg-white ps-10 pe-3 py-2 text-sm dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100"
+                    className="flex h-10 w-full rounded-xl border border-border bg-card ps-10 pe-3 py-2 text-sm dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100"
                   />
                 </div>
               </div>

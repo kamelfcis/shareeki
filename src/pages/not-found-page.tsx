@@ -9,7 +9,7 @@ export function NotFoundPage() {
   const { locale, isRTL } = useLocale();
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-neutral-50 dark:bg-neutral-950 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-background p-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -25,16 +25,16 @@ export function NotFoundPage() {
             404
           </motion.div>
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="rounded-2xl bg-white dark:bg-neutral-900 p-4 shadow-xl">
+            <div className="rounded-2xl bg-card p-4 shadow-xl">
               <Search className="h-8 w-8 text-brand-500" />
             </div>
           </div>
         </div>
 
-        <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100 mb-2">
+        <h1 className="text-2xl font-bold text-foreground mb-2">
           {locale === "ar" ? "الصفحة غير موجودة" : "Page Not Found"}
         </h1>
-        <p className="text-neutral-500 dark:text-neutral-400 mb-8">
+        <p className="text-muted-foreground mb-8">
           {locale === "ar"
             ? "عذراً، الصفحة التي تبحث عنها غير موجودة أو تم نقلها."
             : "Sorry, the page you're looking for doesn't exist or has been moved."}

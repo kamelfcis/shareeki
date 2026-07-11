@@ -138,13 +138,13 @@ export function SettingsPage() {
       initial="initial"
       animate="animate"
       variants={{ animate: { transition: { staggerChildren: 0.1 } } }}
-      className="space-y-6"
+      className="page-container"
     >
       <motion.div variants={fadeIn}>
-        <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+        <h1 className="page-title">
           {locale === "ar" ? "الإعدادات" : "Settings"}
         </h1>
-        <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
+        <p className="page-description mt-1">
           {locale === "ar" ? "إدارة حسابك وتفضيلاتك" : "Manage your account and preferences"}
         </p>
       </motion.div>
@@ -153,7 +153,7 @@ export function SettingsPage() {
         <Tabs value={activeTab} onValueChange={handleTabChange}>
           <div className="flex flex-col lg:flex-row gap-6">
             <div className="lg:w-64 shrink-0">
-              <TabsList className="flex lg:flex-col w-full justify-start h-auto p-1 bg-transparent overflow-x-auto">
+              <TabsList className="flex lg:flex-col w-full justify-start h-auto p-1 bg-transparent overflow-x-auto scrollbar-none">
                 {TAB_CONFIG.map((tab) => (
                   <TabsTrigger
                     key={tab.value}
@@ -176,7 +176,7 @@ export function SettingsPage() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-6">
-                    <div className="flex items-center gap-4">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                       <UserAvatar src={userData.avatar} name={displayName} size="xl" />
                       <div>
                         <Button
@@ -194,7 +194,7 @@ export function SettingsPage() {
                           <Camera className="h-4 w-4 me-2" />
                           {locale === "ar" ? "تغيير الصورة" : "Change Photo"}
                         </Button>
-                        <p className="text-xs text-neutral-500 mt-2">
+                        <p className="text-xs text-muted-foreground mt-2">
                           JPG, PNG {locale === "ar" ? "بحد أقصى 2 ميجا" : "max 2MB"}
                         </p>
                       </div>
@@ -202,7 +202,7 @@ export function SettingsPage() {
 
                     <Separator />
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="form-grid">
                       <Input
                         label={locale === "ar" ? "الاسم" : "Name"}
                         value={profileName}
@@ -236,7 +236,7 @@ export function SettingsPage() {
                       />
                     </div>
 
-                    <div className="flex justify-end gap-3">
+                    <div className="action-row">
                       <Button
                         variant="outline"
                         onClick={() => {
@@ -290,7 +290,7 @@ export function SettingsPage() {
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                     />
-                    <div className="flex justify-end gap-3">
+                    <div className="action-row">
                       <Button
                         variant="outline"
                         onClick={() => {
@@ -341,7 +341,7 @@ export function SettingsPage() {
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="space-y-2">
-                      <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                      <label className="text-sm font-medium text-foreground">
                         {locale === "ar" ? "اللغة" : "Language"}
                       </label>
                       <div className="grid grid-cols-2 gap-3">
@@ -351,13 +351,13 @@ export function SettingsPage() {
                             "flex items-center gap-3 rounded-xl border-2 p-4 transition-all",
                             locale === "en"
                               ? "border-brand-500 bg-brand-50 dark:bg-brand-950"
-                              : "border-neutral-200 hover:border-neutral-300 dark:border-neutral-800"
+                              : "border-border hover:border-neutral-300 dark:border-neutral-800"
                           )}
                         >
                           <span className="text-2xl">🇬🇧</span>
                           <div className="text-start">
                             <p className="font-medium">English</p>
-                            <p className="text-xs text-neutral-500">LTR</p>
+                            <p className="text-xs text-muted-foreground">LTR</p>
                           </div>
                           {locale === "en" && <Check className="h-5 w-5 text-brand-500 ms-auto" />}
                         </button>
@@ -367,23 +367,23 @@ export function SettingsPage() {
                             "flex items-center gap-3 rounded-xl border-2 p-4 transition-all",
                             locale === "ar"
                               ? "border-brand-500 bg-brand-50 dark:bg-brand-950"
-                              : "border-neutral-200 hover:border-neutral-300 dark:border-neutral-800"
+                              : "border-border hover:border-neutral-300 dark:border-neutral-800"
                           )}
                         >
                           <span className="text-2xl">🇸🇦</span>
                           <div className="text-start">
                             <p className="font-medium">العربية</p>
-                            <p className="text-xs text-neutral-500">RTL</p>
+                            <p className="text-xs text-muted-foreground">RTL</p>
                           </div>
                           {locale === "ar" && <Check className="h-5 w-5 text-brand-500 ms-auto" />}
                         </button>
                       </div>
                     </div>
-                    <div className="rounded-xl border border-neutral-200 p-4 dark:border-neutral-800">
-                      <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                    <div className="rounded-xl border border-border p-4 dark:border-neutral-800">
+                      <p className="text-sm font-medium text-foreground">
                         {locale === "ar" ? "المنطقة الزمنية" : "Time Zone"}
                       </p>
-                      <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1">
+                      <p className="text-xs text-muted-foreground mt-1">
                         {locale === "ar" ? "توقيت القاهرة (UTC+2)" : "Cairo Time (UTC+2)"}
                       </p>
                     </div>
@@ -399,35 +399,35 @@ export function SettingsPage() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="grid grid-cols-3 gap-3">
-                      {(["light", "dark", "system"] as const).map((t) => (
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      {(["light", "dark", "system"] as const).map((themeOption) => (
                         <button
-                          key={t}
-                          onClick={() => setTheme(t)}
+                          key={themeOption}
+                          onClick={() => setTheme(themeOption)}
                           className={cn(
-                            "flex flex-col items-center gap-2 rounded-xl border-2 p-4 transition-all",
-                            theme === t
+                            "flex flex-col items-center gap-2 rounded-xl border-2 p-4 transition-all min-h-[44px]",
+                            theme === themeOption
                               ? "border-brand-500 bg-brand-50 dark:bg-brand-950"
-                              : "border-neutral-200 hover:border-neutral-300 dark:border-neutral-800"
+                              : "border-border hover:border-neutral-300 dark:hover:border-neutral-700"
                           )}
                         >
                           <div
                             className={cn(
                               "h-12 w-16 rounded-lg border",
-                              t === "light" && "bg-white border-neutral-200",
-                              t === "dark" && "bg-neutral-900 border-neutral-700",
-                              t === "system" &&
+                              themeOption === "light" && "bg-card border-border",
+                              themeOption === "dark" && "bg-neutral-900 border-neutral-700",
+                              themeOption === "system" &&
                                 "bg-gradient-to-r from-white to-neutral-900 border-neutral-300"
                             )}
                           />
                           <span className="text-sm font-medium capitalize">
                             {locale === "ar"
-                              ? t === "light"
+                              ? themeOption === "light"
                                 ? "فاتح"
-                                : t === "dark"
+                                : themeOption === "dark"
                                   ? "داكن"
                                   : "النظام"
-                              : t}
+                              : themeOption}
                           </span>
                         </button>
                       ))}
@@ -444,16 +444,16 @@ export function SettingsPage() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    <div className="flex items-center justify-between rounded-xl border border-neutral-200 p-4 dark:border-neutral-800">
+                    <div className="flex items-center justify-between rounded-xl border border-border p-4 dark:border-neutral-800">
                       <div className="flex items-center gap-3">
                         <div className="rounded-lg bg-brand-50 p-2 dark:bg-brand-950/60">
                           <Key className="h-5 w-5 text-brand-600 dark:text-brand-400" />
                         </div>
                         <div>
-                          <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                          <p className="text-sm font-medium text-foreground">
                             {locale === "ar" ? "المصادقة الثنائية" : "Two-Factor Authentication"}
                           </p>
-                          <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                          <p className="text-xs text-muted-foreground">
                             {locale === "ar"
                               ? "أضف طبقة أمان إضافية"
                               : "Add an extra layer of security"}
@@ -479,16 +479,16 @@ export function SettingsPage() {
                         }
                       />
                     </div>
-                    <div className="flex items-center justify-between rounded-xl border border-neutral-200 p-4 dark:border-neutral-800">
+                    <div className="flex items-center justify-between rounded-xl border border-border p-4 dark:border-neutral-800">
                       <div className="flex items-center gap-3">
                         <div className="rounded-lg bg-red-50 p-2 dark:bg-red-950/60">
                           <Smartphone className="h-5 w-5 text-red-600 dark:text-red-400" />
                         </div>
                         <div>
-                          <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                          <p className="text-sm font-medium text-foreground">
                             {locale === "ar" ? "الجلسات النشطة" : "Active Sessions"}
                           </p>
-                          <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                          <p className="text-xs text-muted-foreground">
                             {locale === "ar"
                               ? `${devices.length} أجهزة مسجلة الدخول`
                               : `${devices.length} devices logged in`}
@@ -569,13 +569,13 @@ export function SettingsPage() {
                     ].map((item) => (
                       <div
                         key={item.key}
-                        className="flex items-center justify-between rounded-xl border border-neutral-200 p-4 dark:border-neutral-800"
+                        className="flex items-center justify-between rounded-xl border border-border p-4 dark:border-neutral-800"
                       >
                         <div>
-                          <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                          <p className="text-sm font-medium text-foreground">
                             {locale === "ar" ? item.labelAr : item.label}
                           </p>
-                          <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                          <p className="text-xs text-muted-foreground">
                             {locale === "ar" ? item.descAr : item.desc}
                           </p>
                         </div>
@@ -639,13 +639,13 @@ export function SettingsPage() {
                     ].map((item) => (
                       <div
                         key={item.key}
-                        className="flex items-center justify-between rounded-xl border border-neutral-200 p-4 dark:border-neutral-800"
+                        className="flex items-center justify-between rounded-xl border border-border p-4 dark:border-neutral-800"
                       >
                         <div>
-                          <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                          <p className="text-sm font-medium text-foreground">
                             {locale === "ar" ? item.labelAr : item.label}
                           </p>
-                          <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                          <p className="text-xs text-muted-foreground">
                             {locale === "ar" ? item.descAr : item.desc}
                           </p>
                         </div>
@@ -687,15 +687,15 @@ export function SettingsPage() {
                     {devices.map((device) => (
                       <div
                         key={device.id}
-                        className="flex items-center justify-between rounded-xl border border-neutral-200 p-4 dark:border-neutral-800"
+                        className="flex items-center justify-between rounded-xl border border-border p-4 dark:border-neutral-800"
                       >
                         <div className="flex items-center gap-3">
                           <div className="rounded-lg bg-neutral-100 p-2 dark:bg-neutral-800">
-                            <Smartphone className="h-5 w-5 text-neutral-600 dark:text-neutral-400" />
+                            <Smartphone className="h-5 w-5 text-muted-foreground" />
                           </div>
                           <div>
                             <div className="flex items-center gap-2">
-                              <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                              <p className="text-sm font-medium text-foreground">
                                 {device.name}
                               </p>
                               {device.current && (
@@ -704,7 +704,7 @@ export function SettingsPage() {
                                 </Badge>
                               )}
                             </div>
-                            <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                            <p className="text-xs text-muted-foreground">
                               {device.location} • {device.lastActive}
                             </p>
                           </div>

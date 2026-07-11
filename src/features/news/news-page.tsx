@@ -59,10 +59,10 @@ export function NewsPage() {
       {/* Header */}
       <motion.div variants={fadeIn} className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+          <h1 className="text-2xl font-bold text-foreground">
             {locale === "ar" ? "الأخبار" : "News"}
           </h1>
-          <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
+          <p className="text-sm text-muted-foreground mt-1">
             {locale === "ar" ? "آخر الأخبار والتحديثات" : "Latest news and updates"}
           </p>
         </div>
@@ -94,13 +94,13 @@ export function NewsPage() {
                     </Badge>
                   )}
                 </div>
-                <h2 className="text-xl font-bold text-neutral-900 dark:text-neutral-100 mb-2 group-hover:text-brand-600 transition-colors">
+                <h2 className="text-xl font-bold text-foreground mb-2 group-hover:text-brand-600 transition-colors">
                   {locale === "ar" ? pinnedArticle.titleAr : pinnedArticle.title}
                 </h2>
-                <p className="text-neutral-600 dark:text-neutral-400 text-sm line-clamp-2 mb-4">
+                <p className="text-muted-foreground text-sm line-clamp-2 mb-4">
                   {locale === "ar" ? pinnedArticle.excerptAr : pinnedArticle.excerpt}
                 </p>
-                <div className="flex items-center gap-4 text-xs text-neutral-500 dark:text-neutral-400">
+                <div className="flex items-center gap-4 text-xs text-muted-foreground">
                   <span className="flex items-center gap-1">
                     <User className="h-3 w-3" />
                     {locale === "ar" ? pinnedArticle.authorAr : pinnedArticle.author}
@@ -159,18 +159,18 @@ export function NewsPage() {
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                  <Badge className="absolute top-3 start-3 bg-white/90 backdrop-blur-sm text-neutral-700 border-0">
+                  <Badge className="absolute top-3 start-3 bg-card/90 backdrop-blur-sm text-foreground border-0">
                     {locale === "ar" ? article.categoryAr : article.category}
                   </Badge>
                 </div>
                 <CardContent className="p-4 flex flex-col h-full">
-                  <h3 className="font-semibold text-neutral-900 dark:text-neutral-100 mb-2 group-hover:text-brand-600 transition-colors line-clamp-2">
+                  <h3 className="font-semibold text-foreground mb-2 group-hover:text-brand-600 transition-colors line-clamp-2">
                     {locale === "ar" ? article.titleAr : article.title}
                   </h3>
-                  <p className="text-sm text-neutral-500 dark:text-neutral-400 line-clamp-2 mb-4 flex-1">
+                  <p className="text-sm text-muted-foreground line-clamp-2 mb-4 flex-1">
                     {locale === "ar" ? article.excerptAr : article.excerpt}
                   </p>
-                  <div className="flex items-center justify-between text-xs text-neutral-400">
+                  <div className="flex items-center justify-between text-xs text-muted-foreground">
                     <div className="flex items-center gap-3">
                       <span className="flex items-center gap-1">
                         <Clock className="h-3 w-3" />
@@ -208,7 +208,7 @@ export function NewsPage() {
                 <DialogTitle className="text-xl font-bold text-start">
                   {locale === "ar" ? selectedArticle.titleAr : selectedArticle.title}
                 </DialogTitle>
-                <div className="flex items-center gap-4 text-sm text-neutral-500 dark:text-neutral-400 mt-2">
+                <div className="flex items-center gap-4 text-sm text-muted-foreground mt-2">
                   <span className="flex items-center gap-1"><User className="h-3.5 w-3.5" />{locale === "ar" ? selectedArticle.authorAr : selectedArticle.author}</span>
                   <span className="flex items-center gap-1"><Clock className="h-3.5 w-3.5" />{selectedArticle.readTime} min read</span>
                   <span>{selectedArticle.publishedAt}</span>
@@ -216,7 +216,7 @@ export function NewsPage() {
               </DialogHeader>
               <img src={selectedArticle.image} alt={selectedArticle.title} className="w-full h-56 object-cover rounded-xl" />
               <div className="prose prose-sm dark:prose-invert max-w-none">
-                <p className="text-neutral-700 dark:text-neutral-300 leading-relaxed whitespace-pre-line">
+                <p className="text-foreground leading-relaxed whitespace-pre-line">
                   {locale === "ar" ? selectedArticle.contentAr : selectedArticle.content}
                 </p>
               </div>
@@ -224,7 +224,7 @@ export function NewsPage() {
                 <>
                   <Separator />
                   <div className="flex items-center gap-2 flex-wrap">
-                    <Tag className="h-3.5 w-3.5 text-neutral-400" />
+                    <Tag className="h-3.5 w-3.5 text-muted-foreground" />
                     {selectedArticle.tags.map((tag) => (
                       <Badge key={tag} variant="outline" className="text-xs">{tag}</Badge>
                     ))}

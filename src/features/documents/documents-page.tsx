@@ -93,10 +93,10 @@ export function DocumentsPage() {
       {/* Header */}
       <motion.div variants={fadeIn} className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+          <h1 className="text-2xl font-bold text-foreground">
             {locale === "ar" ? "المستندات" : "Documents"}
           </h1>
-          <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
+          <p className="text-sm text-muted-foreground mt-1">
             {locale === "ar" ? "إدارة مستنداتك الشخصية" : "Manage your personal documents"}
           </p>
         </div>
@@ -119,8 +119,8 @@ export function DocumentsPage() {
               <div className={cn("inline-flex rounded-xl p-2 mb-2", stat.color)}>
                 <stat.icon className="h-5 w-5" />
               </div>
-              <p className="text-xl font-bold text-neutral-900 dark:text-neutral-100">{stat.count}</p>
-              <p className="text-xs text-neutral-500 dark:text-neutral-400">{stat.label}</p>
+              <p className="text-xl font-bold text-foreground">{stat.count}</p>
+              <p className="text-xs text-muted-foreground">{stat.label}</p>
             </CardContent>
           </Card>
         ))}
@@ -175,10 +175,10 @@ export function DocumentsPage() {
                         <Icon className="h-5 w-5 text-brand-600 dark:text-brand-400" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-sm font-medium text-neutral-900 dark:text-neutral-100 truncate">
+                        <h3 className="text-sm font-medium text-foreground truncate">
                           {locale === "ar" ? doc.nameAr : doc.name}
                         </h3>
-                        <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                        <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 mt-1 text-xs text-muted-foreground">
                           <Badge variant="secondary" className="text-[10px] px-1.5 py-0">{doc.category}</Badge>
                           <span>{doc.type}</span>
                           <span>{formatSize(doc.size)}</span>
@@ -222,11 +222,11 @@ export function DocumentsPage() {
             onDrop={(e) => { e.preventDefault(); setDragActive(false); handleUpload(e.dataTransfer.files[0]?.name); }}
             onClick={() => { const input = document.createElement("input"); input.type = "file"; input.onchange = () => handleUpload(input.files?.[0]?.name); input.click(); }}
           >
-            <Upload className="h-10 w-10 text-neutral-400 mx-auto mb-3" />
-            <p className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+            <Upload className="h-10 w-10 text-muted-foreground mx-auto mb-3" />
+            <p className="text-sm font-medium text-foreground">
               {locale === "ar" ? "اسحب الملفات هنا أو انقر للتحديد" : "Drag & drop files here or click to browse"}
             </p>
-            <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1">
+            <p className="text-xs text-muted-foreground mt-1">
               PDF, DOC, XLS, JPG, PNG (max 10MB)
             </p>
           </div>

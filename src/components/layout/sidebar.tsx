@@ -70,7 +70,7 @@ export function Sidebar() {
       <aside
         dir={direction}
         className={cn(
-          "fixed inset-y-0 z-50 flex flex-col bg-white border-neutral-200 transition-all duration-300 ease-in-out dark:bg-neutral-950 dark:border-neutral-800",
+          "fixed inset-y-0 z-50 flex flex-col bg-card border-border transition-all duration-300 ease-in-out",
           isRTL ? "right-0 border-l" : "left-0 border-r",
           isCollapsed ? "w-[72px]" : "w-[280px]",
           // Mobile: off-screen by default, slide in when open
@@ -82,7 +82,7 @@ export function Sidebar() {
       >
         {/* Logo */}
         <div className={cn(
-          "flex h-14 sm:h-16 items-center border-b border-neutral-200 dark:border-neutral-800 shrink-0",
+          "flex h-14 sm:h-16 items-center border-b border-border shrink-0",
           isCollapsed ? "justify-center px-2" : "px-4 sm:px-6"
         )}>
           {!isCollapsed && (
@@ -140,7 +140,7 @@ export function Sidebar() {
                     "group relative flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-150",
                     isActive
                       ? "bg-brand-50 text-brand-700 dark:bg-brand-950/60 dark:text-brand-300"
-                      : "text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800/80 dark:hover:text-neutral-100",
+                      : "text-muted-foreground hover:bg-muted hover:text-foreground",
                     isCollapsed && "justify-center px-2",
                     isRTL && !isCollapsed && "justify-start"
                   )}
@@ -156,7 +156,7 @@ export function Sidebar() {
                     "h-5 w-5 shrink-0 transition-colors",
                     isActive
                       ? "text-brand-600 dark:text-brand-400"
-                      : "text-neutral-500 dark:text-neutral-500 group-hover:text-neutral-700 dark:group-hover:text-neutral-300"
+                      : "text-muted-foreground dark:text-muted-foreground group-hover:text-foreground dark:group-hover:text-neutral-300"
                   )} />
                   {!isCollapsed && (
                     <span className="truncate">{locale === "ar" ? item.titleAr : item.title}</span>
@@ -174,7 +174,7 @@ export function Sidebar() {
 
         {/* User Section */}
         <div className={cn(
-          "border-t border-neutral-200 dark:border-neutral-800 shrink-0",
+          "border-t border-border shrink-0",
           isCollapsed ? "p-2" : "p-3"
         )}>
           <Link
@@ -183,7 +183,7 @@ export function Sidebar() {
             className={cn(
               "flex w-full items-center gap-3 rounded-xl p-2 transition-colors",
               isCollapsed ? "justify-center" : "justify-start",
-              "hover:bg-neutral-100 dark:hover:bg-neutral-800",
+              "hover:bg-muted",
               location.pathname === "/profile" && "bg-brand-50 dark:bg-brand-950/60"
             )}
           >
@@ -195,17 +195,17 @@ export function Sidebar() {
             {!isCollapsed && (
               <>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100 truncate leading-tight">
+                  <p className="text-sm font-medium text-foreground truncate leading-tight">
                     {user?.name || mockUser.name}
                   </p>
-                  <p className="text-xs text-neutral-500 dark:text-neutral-400 truncate leading-tight mt-0.5">
+                  <p className="text-xs text-muted-foreground truncate leading-tight mt-0.5">
                     {user?.position || mockUser.position}
                   </p>
                 </div>
                 <Button
                   variant="ghost"
                   size="icon-sm"
-                  className="shrink-0 text-neutral-400 hover:text-red-500 dark:text-neutral-500 dark:hover:text-red-400"
+                  className="shrink-0 text-muted-foreground hover:text-red-500 dark:text-muted-foreground dark:hover:text-red-400"
                   aria-label="Sign out"
                   onClick={(e) => e.preventDefault()}
                 >

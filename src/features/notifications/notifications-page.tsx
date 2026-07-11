@@ -89,10 +89,10 @@ export function NotificationsPage() {
       {/* Header */}
       <motion.div variants={fadeIn} className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+          <h1 className="text-2xl font-bold text-foreground">
             {locale === "ar" ? "الإشعارات" : "Notifications"}
           </h1>
-          <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
+          <p className="text-sm text-muted-foreground mt-1">
             {unreadCount > 0
               ? `${unreadCount} ${locale === "ar" ? "إشعارات غير مقروءة" : "unread notifications"}`
               : locale === "ar" ? "جميع الإشعارات مقروءة" : "All notifications read"
@@ -165,7 +165,7 @@ export function NotificationsPage() {
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between gap-2">
                           <h3 className={cn(
-                            "text-sm font-medium text-neutral-900 dark:text-neutral-100",
+                            "text-sm font-medium text-foreground",
                             !notification.read && "font-semibold"
                           )}>
                             {locale === "ar" ? notification.titleAr : notification.title}
@@ -174,10 +174,10 @@ export function NotificationsPage() {
                             <div className="h-2 w-2 rounded-full bg-brand-500 shrink-0 mt-1.5" />
                           )}
                         </div>
-                        <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 line-clamp-2">
+                        <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
                           {locale === "ar" ? notification.messageAr : notification.message}
                         </p>
-                        <p className="text-xs text-neutral-400 mt-2">
+                        <p className="text-xs text-muted-foreground mt-2">
                           {formatRelativeTime(notification.createdAt)}
                         </p>
                       </div>

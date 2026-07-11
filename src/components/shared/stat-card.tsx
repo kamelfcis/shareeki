@@ -32,10 +32,10 @@ export function StatCard({
       <CardContent className="p-6">
         <div className="flex items-center justify-between">
           <div className="space-y-2">
-            <p className="text-sm font-medium text-neutral-500 dark:text-neutral-400">
+            <p className="text-sm font-medium text-muted-foreground">
               {titleAr && title}
             </p>
-            <p className="text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
+            <p className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
               {value}
             </p>
             {change !== undefined && (
@@ -45,14 +45,14 @@ export function StatCard({
                 ) : changeType === "decrease" ? (
                   <TrendingDown className="h-4 w-4 text-red-500" />
                 ) : (
-                  <Minus className="h-4 w-4 text-neutral-400" />
+                  <Minus className="h-4 w-4 text-muted-foreground" />
                 )}
                 <span
                   className={cn(
                     "text-xs font-medium",
                     changeType === "increase" && "text-green-600 dark:text-green-400",
                     changeType === "decrease" && "text-red-600 dark:text-red-400",
-                    changeType === "neutral" && "text-neutral-500"
+                    changeType === "neutral" && "text-muted-foreground"
                   )}
                 >
                   {changeType === "increase" ? "+" : ""}

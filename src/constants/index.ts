@@ -143,7 +143,7 @@ export const REQUEST_STATUSES = [
 ] as const;
 
 export const TICKET_PRIORITIES = [
-  { label: "Low", labelAr: "منخفض", value: "low", color: "text-neutral-500" },
+  { label: "Low", labelAr: "منخفض", value: "low", color: "text-muted-foreground" },
   { label: "Medium", labelAr: "متوسط", value: "medium", color: "text-yellow-500" },
   { label: "High", labelAr: "عالي", value: "high", color: "text-orange-500" },
   { label: "Urgent", labelAr: "عاجل", value: "urgent", color: "text-red-500" },

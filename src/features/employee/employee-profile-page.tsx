@@ -58,8 +58,8 @@ export function EmployeeProfilePage() {
         <Card className="overflow-hidden">
           <div className="relative h-28 sm:h-32 bg-gradient-to-r from-brand-600 via-brand-700 to-brand-800">
             <div className="absolute inset-0 opacity-20">
-              <div className="absolute -top-12 -right-12 h-40 w-40 rounded-full bg-white/10 blur-3xl" />
-              <div className="absolute -bottom-8 -left-8 h-32 w-32 rounded-full bg-white/10 blur-3xl" />
+              <div className="absolute -top-12 -right-12 h-40 w-40 rounded-full bg-card/10 blur-3xl" />
+              <div className="absolute -bottom-8 -left-8 h-32 w-32 rounded-full bg-card/10 blur-3xl" />
             </div>
           </div>
           <CardContent className="relative px-4 sm:px-6 pb-5 sm:pb-6">
@@ -73,10 +73,10 @@ export function EmployeeProfilePage() {
               <div className="flex-1 min-w-0">
                 <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2 sm:gap-4">
                   <div className="min-w-0">
-                    <h1 className="text-xl font-bold text-neutral-900 dark:text-neutral-100 truncate">
+                    <h1 className="text-xl font-bold text-foreground truncate">
                       {displayName}
                     </h1>
-                    <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                    <p className="text-sm text-muted-foreground">
                       {displayPosition} • {displayDepartment}
                     </p>
                   </div>
@@ -93,7 +93,7 @@ export function EmployeeProfilePage() {
                     </Button>
                   </div>
                 </div>
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-3 text-xs sm:text-sm text-neutral-500 dark:text-neutral-400">
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-3 text-xs sm:text-sm text-muted-foreground">
                   <span className="flex items-center gap-1.5">
                     <Mail className="h-3.5 w-3.5 shrink-0" />
                     <span className="truncate">{user.email}</span>
@@ -130,8 +130,8 @@ export function EmployeeProfilePage() {
               <div className={cn("inline-flex rounded-xl p-2 mb-2", stat.color)}>
                 <stat.icon className="h-5 w-5" />
               </div>
-              <p className="text-xl font-bold text-neutral-900 dark:text-neutral-100">{stat.value}</p>
-              <p className="text-xs text-neutral-500 dark:text-neutral-400">{stat.label}</p>
+              <p className="text-xl font-bold text-foreground">{stat.value}</p>
+              <p className="text-xs text-muted-foreground">{stat.label}</p>
             </CardContent>
           );
 
@@ -176,8 +176,8 @@ export function EmployeeProfilePage() {
                   ].map((item, i, arr) => (
                     <div key={item.label}>
                       <div className="flex items-center justify-between py-2.5">
-                        <span className="text-sm text-neutral-500 dark:text-neutral-400">{item.label}</span>
-                        <span className="text-sm font-medium text-neutral-900 dark:text-neutral-100 text-end">
+                        <span className="text-sm text-muted-foreground">{item.label}</span>
+                        <span className="text-sm font-medium text-foreground text-end">
                           {item.isStatus ? (
                             <Badge variant="success" className="text-[10px]">{item.value}</Badge>
                           ) : (
@@ -201,8 +201,8 @@ export function EmployeeProfilePage() {
                 <CardContent>
                   <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-brand-600 to-brand-800 p-5 sm:p-6 text-white shadow-xl shadow-brand-600/20">
                     <div className="absolute inset-0 opacity-10">
-                      <div className="absolute -top-10 -right-10 h-32 w-32 rounded-full bg-white/20 blur-2xl" />
-                      <div className="absolute -bottom-8 -left-8 h-24 w-24 rounded-full bg-white/20 blur-2xl" />
+                      <div className="absolute -top-10 -right-10 h-32 w-32 rounded-full bg-card/20 blur-2xl" />
+                      <div className="absolute -bottom-8 -left-8 h-24 w-24 rounded-full bg-card/20 blur-2xl" />
                     </div>
                     <div className="relative z-10">
                       <div className="flex items-center justify-between mb-5">
@@ -220,7 +220,7 @@ export function EmployeeProfilePage() {
                           <p className="text-xs text-white/45 mt-0.5">{user.employeeId}</p>
                         </div>
                       </div>
-                      <Separator className="bg-white/15 mb-4" />
+                      <Separator className="bg-card/15 mb-4" />
                       <div className="grid grid-cols-2 gap-3 text-xs">
                         <div>
                           <p className="text-white/45">{locale === "ar" ? "القسم" : "Department"}</p>
@@ -272,14 +272,14 @@ export function EmployeeProfilePage() {
                         </Badge>
                       )}
                     </div>
-                    <h3 className="font-semibold text-sm text-neutral-900 dark:text-neutral-100 mb-1">
+                    <h3 className="font-semibold text-sm text-foreground mb-1">
                       {locale === "ar" ? benefit.titleAr : benefit.title}
                     </h3>
-                    <p className="text-xs text-neutral-500 dark:text-neutral-400 line-clamp-2 mb-3 leading-relaxed">
+                    <p className="text-xs text-muted-foreground line-clamp-2 mb-3 leading-relaxed">
                       {locale === "ar" ? benefit.descriptionAr : benefit.description}
                     </p>
                     <div className="flex items-center justify-between text-xs">
-                      <span className="text-neutral-400 dark:text-neutral-500">
+                      <span className="text-muted-foreground dark:text-muted-foreground">
                         {locale === "ar" ? "ينتهي" : "Expires"}: {benefit.expiresAt}
                       </span>
                       {benefit.value > 0 && (
@@ -301,20 +301,20 @@ export function EmployeeProfilePage() {
               <CardContent className="p-4 sm:p-6">
                 <div className="space-y-2">
                   {mockRequests.slice(0, 5).map((req) => (
-                    <div key={req.id} className="flex items-center gap-3 sm:gap-4 p-3 rounded-xl hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-colors cursor-pointer group">
+                    <div key={req.id} className="flex items-center gap-3 sm:gap-4 p-3 rounded-xl hover:bg-muted transition-colors cursor-pointer group">
                       <div className={cn(
                         "rounded-xl p-2 shrink-0",
                         req.status === "approved" ? "bg-green-100 text-green-600 dark:bg-green-950/60 dark:text-green-400" :
                         req.status === "pending" ? "bg-yellow-100 text-yellow-600 dark:bg-yellow-950/60 dark:text-yellow-400" :
-                        "bg-neutral-100 text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400"
+                        "bg-neutral-100 text-muted-foreground dark:bg-neutral-800 dark:text-muted-foreground"
                       )}>
                         <FileText className="h-4 w-4" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100 truncate">
+                        <p className="text-sm font-medium text-foreground truncate">
                           {locale === "ar" ? req.titleAr : req.title}
                         </p>
-                        <p className="text-xs text-neutral-500 dark:text-neutral-400">{req.submittedAt}</p>
+                        <p className="text-xs text-muted-foreground">{req.submittedAt}</p>
                       </div>
                       <div className="flex items-center gap-2 shrink-0">
                         <Badge variant={
@@ -329,7 +329,7 @@ export function EmployeeProfilePage() {
                           ) : req.status}
                         </Badge>
                         <ChevronRight className={cn(
-                          "h-4 w-4 text-neutral-300 dark:text-neutral-600 group-hover:text-brand-500 transition-colors",
+                          "h-4 w-4 text-neutral-300 dark:text-muted-foreground group-hover:text-brand-500 transition-colors",
                           isRTL && "rotate-180"
                         )} />
                       </div>
