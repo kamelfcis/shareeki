@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { cn } from "@/utils";
 import { useLocale, useTheme, useAuth } from "@/hooks";
@@ -6,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { UserAvatar } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
@@ -22,6 +24,7 @@ import {
   Camera,
   Save,
   Check,
+  Eye,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -31,19 +34,49 @@ const fadeIn = {
   transition: { duration: 0.4 },
 };
 
+const SETTINGS_TABS = [
+  "profile",
+  "password",
+  "security",
+  "language",
+  "theme",
+  "notifications",
+  "privacy",
+  "devices",
+] as const;
+
+type SettingsTab = (typeof SETTINGS_TABS)[number];
+
+const TAB_CONFIG: { value: SettingsTab; icon: typeof User; label: string; labelAr: string }[] = [
+  { value: "profile", icon: User, label: "Profile", labelAr: "الملف الشخصي" },
+  { value: "password", icon: Lock, label: "Password", labelAr: "كلمة المرور" },
+  { value: "security", icon: Shield, label: "Security", labelAr: "الأمان" },
+  { value: "language", icon: Globe, label: "Language", labelAr: "اللغة" },
+  { value: "theme", icon: Moon, label: "Theme", labelAr: "المظهر" },
+  { value: "notifications", icon: Bell, label: "Notifications", labelAr: "الإشعارات" },
+  { value: "privacy", icon: Eye, label: "Privacy", labelAr: "الخصوصية" },
+  { value: "devices", icon: Smartphone, label: "Devices", labelAr: "الأجهزة" },
+];
+
+function isValidTab(tab?: string): tab is SettingsTab {
+  return SETTINGS_TABS.includes(tab as SettingsTab);
+}
+
 export function SettingsPage() {
-  const { locale, isRTL, setLocale } = useLocale();
+  const { locale, setLocale } = useLocale();
   const { theme, setTheme } = useTheme();
   const { user } = useAuth();
-  const [activeTab, setActiveTab] = useState("profile");
-  const [notifications, setNotifications] = useState({
-    email: true,
-    push: true,
-    sms: false,
-    marketing: false,
-  });
+  const { tab: tabParam } = useParams<{ tab?: string }>();
+  const navigate = useNavigate();
 
-  const [profileName, setProfileName] = useState(userData.name);
+  const userData = user || mockUser;
+  const displayName = locale === "ar" && userData.nameAr ? userData.nameAr : userData.name;
+  const displayDepartment = locale === "ar" && userData.departmentAr ? userData.departmentAr : userData.department;
+  const displayPosition = locale === "ar" && userData.positionAr ? userData.positionAr : userData.position;
+
+  const activeTab: SettingsTab = isValidTab(tabParam) ? tabParam : "profile";
+
+  const [profileName, setProfileName] = useState(displayName);
   const [profileEmail, setProfileEmail] = useState(userData.email);
   const [profilePhone, setProfilePhone] = useState(userData.phone);
 
@@ -51,7 +84,54 @@ export function SettingsPage() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const userData = user || mockUser;
+  const [twoFactorEnabled, setTwoFactorEnabled] = useState(false);
+
+  const [notifications, setNotifications] = useState({
+    email: true,
+    push: true,
+    sms: false,
+    marketing: false,
+    requests: true,
+    benefits: true,
+  });
+
+  const [privacy, setPrivacy] = useState({
+    profileVisible: true,
+    showEmail: false,
+    showPhone: false,
+    activityStatus: true,
+    analytics: true,
+  });
+
+  const [devices, setDevices] = useState([
+    { id: "dev_1", name: "MacBook Pro", location: locale === "ar" ? "القاهرة، مصر" : "Cairo, Egypt", lastActive: locale === "ar" ? "نشط الآن" : "Active now", current: true },
+    { id: "dev_2", name: "iPhone 15", location: locale === "ar" ? "القاهرة، مصر" : "Cairo, Egypt", lastActive: locale === "ar" ? "منذ ساعتين" : "2 hours ago", current: false },
+    { id: "dev_3", name: "Windows PC", location: locale === "ar" ? "الإسكندرية، مصر" : "Alexandria, Egypt", lastActive: locale === "ar" ? "منذ 3 أيام" : "3 days ago", current: false },
+  ]);
+
+  useEffect(() => {
+    setProfileName(displayName);
+    setProfileEmail(userData.email);
+    setProfilePhone(userData.phone);
+  }, [displayName, userData.email, userData.phone]);
+
+  useEffect(() => {
+    if (tabParam && !isValidTab(tabParam)) {
+      navigate("/settings", { replace: true });
+    }
+  }, [tabParam, navigate]);
+
+  const handleTabChange = (value: string) => {
+    if (!isValidTab(value)) return;
+    navigate(value === "profile" ? "/settings" : `/settings/${value}`);
+  };
+
+  const handleRemoveDevice = (deviceId: string, deviceName: string) => {
+    setDevices((prev) => prev.filter((d) => d.id !== deviceId));
+    toast.success(
+      locale === "ar" ? `تم إزالة ${deviceName}` : `${deviceName} removed`
+    );
+  };
 
   return (
     <motion.div
@@ -60,7 +140,6 @@ export function SettingsPage() {
       variants={{ animate: { transition: { staggerChildren: 0.1 } } }}
       className="space-y-6"
     >
-      {/* Header */}
       <motion.div variants={fadeIn}>
         <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
           {locale === "ar" ? "الإعدادات" : "Settings"}
@@ -71,43 +150,24 @@ export function SettingsPage() {
       </motion.div>
 
       <motion.div variants={fadeIn}>
-        <Tabs value={activeTab} onValueChange={setActiveTab}>
+        <Tabs value={activeTab} onValueChange={handleTabChange}>
           <div className="flex flex-col lg:flex-row gap-6">
-            {/* Sidebar */}
             <div className="lg:w-64 shrink-0">
               <TabsList className="flex lg:flex-col w-full justify-start h-auto p-1 bg-transparent overflow-x-auto">
-                {[
-                  { value: "profile", icon: User, label: "Profile" },
-                  { value: "password", icon: Lock, label: "Password" },
-                  { value: "security", icon: Shield, label: "Security" },
-                  { value: "language", icon: Globe, label: "Language" },
-                  { value: "theme", icon: Moon, label: "Theme" },
-                  { value: "notifications", icon: Bell, label: "Notifications" },
-                  { value: "devices", icon: Smartphone, label: "Devices" },
-                ].map((tab) => (
+                {TAB_CONFIG.map((tab) => (
                   <TabsTrigger
                     key={tab.value}
                     value={tab.value}
                     className="justify-start w-full mb-1"
                   >
                     <tab.icon className="h-4 w-4 me-2" />
-                    {locale === "ar" ? (
-                      tab.label === "Profile" ? "الملف الشخصي" :
-                      tab.label === "Password" ? "كلمة المرور" :
-                      tab.label === "Security" ? "الأمان" :
-                      tab.label === "Language" ? "اللغة" :
-                      tab.label === "Theme" ? "المظهر" :
-                      tab.label === "Notifications" ? "الإشعارات" :
-                      "الأجهزة"
-                    ) : tab.label}
+                    {locale === "ar" ? tab.labelAr : tab.label}
                   </TabsTrigger>
                 ))}
               </TabsList>
             </div>
 
-            {/* Content */}
             <div className="flex-1">
-              {/* Profile Tab */}
               <TabsContent value="profile">
                 <Card>
                   <CardHeader>
@@ -117,9 +177,20 @@ export function SettingsPage() {
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div className="flex items-center gap-4">
-                      <UserAvatar src={userData.avatar} name={userData.name} size="xl" />
+                      <UserAvatar src={userData.avatar} name={displayName} size="xl" />
                       <div>
-                        <Button variant="outline" size="sm" onClick={() => { const input = document.createElement("input"); input.type = "file"; input.accept = "image/*"; input.onchange = () => toast.success(locale === "ar" ? "تم تحديث الصورة" : "Photo updated"); input.click(); }}>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => {
+                            const input = document.createElement("input");
+                            input.type = "file";
+                            input.accept = "image/*";
+                            input.onchange = () =>
+                              toast.success(locale === "ar" ? "تم تحديث الصورة" : "Photo updated");
+                            input.click();
+                          }}
+                        >
                           <Camera className="h-4 w-4 me-2" />
                           {locale === "ar" ? "تغيير الصورة" : "Change Photo"}
                         </Button>
@@ -155,19 +226,33 @@ export function SettingsPage() {
                       />
                       <Input
                         label={locale === "ar" ? "القسم" : "Department"}
-                        defaultValue={userData.department}
+                        defaultValue={displayDepartment}
                         disabled
                       />
                       <Input
                         label={locale === "ar" ? "المنصب" : "Position"}
-                        defaultValue={userData.position}
+                        defaultValue={displayPosition}
                         disabled
                       />
                     </div>
 
                     <div className="flex justify-end gap-3">
-                      <Button variant="outline" onClick={() => toast.info(locale === "ar" ? "تم الإلغاء" : "Changes discarded")}>{locale === "ar" ? "إلغاء" : "Cancel"}</Button>
-                      <Button onClick={() => toast.success(locale === "ar" ? "تم الحفظ" : "Changes saved")}>
+                      <Button
+                        variant="outline"
+                        onClick={() => {
+                          setProfileName(displayName);
+                          setProfileEmail(userData.email);
+                          setProfilePhone(userData.phone);
+                          toast.info(locale === "ar" ? "تم الإلغاء" : "Changes discarded");
+                        }}
+                      >
+                        {locale === "ar" ? "إلغاء" : "Cancel"}
+                      </Button>
+                      <Button
+                        onClick={() =>
+                          toast.success(locale === "ar" ? "تم الحفظ" : "Changes saved")
+                        }
+                      >
                         <Save className="h-4 w-4 me-2" />
                         {locale === "ar" ? "حفظ" : "Save Changes"}
                       </Button>
@@ -176,7 +261,6 @@ export function SettingsPage() {
                 </Card>
               </TabsContent>
 
-              {/* Password Tab */}
               <TabsContent value="password">
                 <Card>
                   <CardHeader>
@@ -207,13 +291,39 @@ export function SettingsPage() {
                       onChange={(e) => setConfirmPassword(e.target.value)}
                     />
                     <div className="flex justify-end gap-3">
-                      <Button variant="outline" onClick={() => { setCurrentPassword(""); setNewPassword(""); setConfirmPassword(""); toast.info(locale === "ar" ? "تم الإلغاء" : "Changes discarded"); }}>{locale === "ar" ? "إلغاء" : "Cancel"}</Button>
-                      <Button onClick={() => {
-                        if (!currentPassword || !newPassword || !confirmPassword) { toast.error(locale === "ar" ? "املأ جميع الحقول" : "Fill all fields"); return; }
-                        if (newPassword !== confirmPassword) { toast.error(locale === "ar" ? "كلمتا المرور غير متطابقتين" : "Passwords don't match"); return; }
-                        toast.success(locale === "ar" ? "تم تحديث كلمة المرور" : "Password updated");
-                        setCurrentPassword(""); setNewPassword(""); setConfirmPassword("");
-                      }}>
+                      <Button
+                        variant="outline"
+                        onClick={() => {
+                          setCurrentPassword("");
+                          setNewPassword("");
+                          setConfirmPassword("");
+                          toast.info(locale === "ar" ? "تم الإلغاء" : "Changes discarded");
+                        }}
+                      >
+                        {locale === "ar" ? "إلغاء" : "Cancel"}
+                      </Button>
+                      <Button
+                        onClick={() => {
+                          if (!currentPassword || !newPassword || !confirmPassword) {
+                            toast.error(locale === "ar" ? "املأ جميع الحقول" : "Fill all fields");
+                            return;
+                          }
+                          if (newPassword !== confirmPassword) {
+                            toast.error(
+                              locale === "ar"
+                                ? "كلمتا المرور غير متطابقتين"
+                                : "Passwords don't match"
+                            );
+                            return;
+                          }
+                          toast.success(
+                            locale === "ar" ? "تم تحديث كلمة المرور" : "Password updated"
+                          );
+                          setCurrentPassword("");
+                          setNewPassword("");
+                          setConfirmPassword("");
+                        }}
+                      >
                         <Lock className="h-4 w-4 me-2" />
                         {locale === "ar" ? "تحديث" : "Update Password"}
                       </Button>
@@ -222,7 +332,6 @@ export function SettingsPage() {
                 </Card>
               </TabsContent>
 
-              {/* Language Tab */}
               <TabsContent value="language">
                 <Card>
                   <CardHeader>
@@ -240,11 +349,13 @@ export function SettingsPage() {
                           onClick={() => setLocale("en")}
                           className={cn(
                             "flex items-center gap-3 rounded-xl border-2 p-4 transition-all",
-                            locale === "en" ? "border-brand-500 bg-brand-50 dark:bg-brand-950" : "border-neutral-200 hover:border-neutral-300 dark:border-neutral-800"
+                            locale === "en"
+                              ? "border-brand-500 bg-brand-50 dark:bg-brand-950"
+                              : "border-neutral-200 hover:border-neutral-300 dark:border-neutral-800"
                           )}
                         >
                           <span className="text-2xl">🇬🇧</span>
-                          <div className="text-left">
+                          <div className="text-start">
                             <p className="font-medium">English</p>
                             <p className="text-xs text-neutral-500">LTR</p>
                           </div>
@@ -254,11 +365,13 @@ export function SettingsPage() {
                           onClick={() => setLocale("ar")}
                           className={cn(
                             "flex items-center gap-3 rounded-xl border-2 p-4 transition-all",
-                            locale === "ar" ? "border-brand-500 bg-brand-50 dark:bg-brand-950" : "border-neutral-200 hover:border-neutral-300 dark:border-neutral-800"
+                            locale === "ar"
+                              ? "border-brand-500 bg-brand-50 dark:bg-brand-950"
+                              : "border-neutral-200 hover:border-neutral-300 dark:border-neutral-800"
                           )}
                         >
                           <span className="text-2xl">🇸🇦</span>
-                          <div className="text-right">
+                          <div className="text-start">
                             <p className="font-medium">العربية</p>
                             <p className="text-xs text-neutral-500">RTL</p>
                           </div>
@@ -266,11 +379,18 @@ export function SettingsPage() {
                         </button>
                       </div>
                     </div>
+                    <div className="rounded-xl border border-neutral-200 p-4 dark:border-neutral-800">
+                      <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                        {locale === "ar" ? "المنطقة الزمنية" : "Time Zone"}
+                      </p>
+                      <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1">
+                        {locale === "ar" ? "توقيت القاهرة (UTC+2)" : "Cairo Time (UTC+2)"}
+                      </p>
+                    </div>
                   </CardContent>
                 </Card>
               </TabsContent>
 
-              {/* Theme Tab */}
               <TabsContent value="theme">
                 <Card>
                   <CardHeader>
@@ -286,19 +406,28 @@ export function SettingsPage() {
                           onClick={() => setTheme(t)}
                           className={cn(
                             "flex flex-col items-center gap-2 rounded-xl border-2 p-4 transition-all",
-                            theme === t ? "border-brand-500 bg-brand-50 dark:bg-brand-950" : "border-neutral-200 hover:border-neutral-300 dark:border-neutral-800"
+                            theme === t
+                              ? "border-brand-500 bg-brand-50 dark:bg-brand-950"
+                              : "border-neutral-200 hover:border-neutral-300 dark:border-neutral-800"
                           )}
                         >
-                          <div className={cn(
-                            "h-12 w-16 rounded-lg border",
-                            t === "light" && "bg-white border-neutral-200",
-                            t === "dark" && "bg-neutral-900 border-neutral-700",
-                            t === "system" && "bg-gradient-to-r from-white to-neutral-900 border-neutral-300"
-                          )} />
+                          <div
+                            className={cn(
+                              "h-12 w-16 rounded-lg border",
+                              t === "light" && "bg-white border-neutral-200",
+                              t === "dark" && "bg-neutral-900 border-neutral-700",
+                              t === "system" &&
+                                "bg-gradient-to-r from-white to-neutral-900 border-neutral-300"
+                            )}
+                          />
                           <span className="text-sm font-medium capitalize">
-                            {locale === "ar" ? (
-                              t === "light" ? "فاتح" : t === "dark" ? "داكن" : "النظام"
-                            ) : t}
+                            {locale === "ar"
+                              ? t === "light"
+                                ? "فاتح"
+                                : t === "dark"
+                                  ? "داكن"
+                                  : "النظام"
+                              : t}
                           </span>
                         </button>
                       ))}
@@ -307,7 +436,6 @@ export function SettingsPage() {
                 </Card>
               </TabsContent>
 
-              {/* Security Tab */}
               <TabsContent value="security">
                 <Card>
                   <CardHeader>
@@ -326,13 +454,30 @@ export function SettingsPage() {
                             {locale === "ar" ? "المصادقة الثنائية" : "Two-Factor Authentication"}
                           </p>
                           <p className="text-xs text-neutral-500 dark:text-neutral-400">
-                            {locale === "ar" ? "أضف طبقة أمان إضافية" : "Add an extra layer of security"}
+                            {locale === "ar"
+                              ? "أضف طبقة أمان إضافية"
+                              : "Add an extra layer of security"}
                           </p>
                         </div>
                       </div>
-                      <Button variant="outline" size="sm" className="rounded-xl" onClick={() => toast.success(locale === "ar" ? "تم تفعيل المصادقة الثنائية" : "2FA enabled")}>
-                        {locale === "ar" ? "تفعيل" : "Enable"}
-                      </Button>
+                      <Switch
+                        checked={twoFactorEnabled}
+                        onCheckedChange={(checked) => {
+                          setTwoFactorEnabled(checked);
+                          toast.success(
+                            checked
+                              ? locale === "ar"
+                                ? "تم تفعيل المصادقة الثنائية"
+                                : "2FA enabled"
+                              : locale === "ar"
+                                ? "تم إيقاف المصادقة الثنائية"
+                                : "2FA disabled"
+                          );
+                        }}
+                        aria-label={
+                          locale === "ar" ? "المصادقة الثنائية" : "Two-Factor Authentication"
+                        }
+                      />
                     </div>
                     <div className="flex items-center justify-between rounded-xl border border-neutral-200 p-4 dark:border-neutral-800">
                       <div className="flex items-center gap-3">
@@ -344,11 +489,25 @@ export function SettingsPage() {
                             {locale === "ar" ? "الجلسات النشطة" : "Active Sessions"}
                           </p>
                           <p className="text-xs text-neutral-500 dark:text-neutral-400">
-                            {locale === "ar" ? "2 أجهزة مسجلة الدخول" : "2 devices logged in"}
+                            {locale === "ar"
+                              ? `${devices.length} أجهزة مسجلة الدخول`
+                              : `${devices.length} devices logged in`}
                           </p>
                         </div>
                       </div>
-                      <Button variant="ghost" size="sm" className="text-red-500 hover:text-red-600 rounded-xl" onClick={() => toast.success(locale === "ar" ? "تم تسجيل الخروج من جميع الأجهزة" : "Signed out from all devices")}>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="text-red-500 hover:text-red-600 rounded-xl"
+                        onClick={() => {
+                          setDevices((prev) => prev.filter((d) => d.current));
+                          toast.success(
+                            locale === "ar"
+                              ? "تم تسجيل الخروج من جميع الأجهزة"
+                              : "Signed out from all devices"
+                          );
+                        }}
+                      >
                         {locale === "ar" ? "تسجيل الخروج من الكل" : "Sign out all"}
                       </Button>
                     </div>
@@ -356,7 +515,6 @@ export function SettingsPage() {
                 </Card>
               </TabsContent>
 
-              {/* Notifications Tab */}
               <TabsContent value="notifications">
                 <Card>
                   <CardHeader>
@@ -366,12 +524,53 @@ export function SettingsPage() {
                   </CardHeader>
                   <CardContent className="space-y-3">
                     {[
-                      { key: "email" as const, labelAr: "إشعارات البريد الإلكتروني", label: "Email Notifications", descAr: "استلام تحديثات عبر البريد", desc: "Receive email updates" },
-                      { key: "push" as const, labelAr: "إشعارات الدفع", label: "Push Notifications", descAr: "استلام إشعارات فورية", desc: "Receive push notifications" },
-                      { key: "sms" as const, labelAr: "إشعارات SMS", label: "SMS Notifications", descAr: "استلام تحديثات عبر الرسائل", desc: "Receive SMS updates" },
-                      { key: "marketing" as const, labelAr: "رسائل التسويق", label: "Marketing Emails", descAr: "استلام رسائل تسويقية", desc: "Receive marketing emails" },
+                      {
+                        key: "email" as const,
+                        labelAr: "إشعارات البريد الإلكتروني",
+                        label: "Email Notifications",
+                        descAr: "استلام تحديثات عبر البريد",
+                        desc: "Receive email updates",
+                      },
+                      {
+                        key: "push" as const,
+                        labelAr: "إشعارات الدفع",
+                        label: "Push Notifications",
+                        descAr: "استلام إشعارات فورية",
+                        desc: "Receive push notifications",
+                      },
+                      {
+                        key: "sms" as const,
+                        labelAr: "إشعارات SMS",
+                        label: "SMS Notifications",
+                        descAr: "استلام تحديثات عبر الرسائل",
+                        desc: "Receive SMS updates",
+                      },
+                      {
+                        key: "requests" as const,
+                        labelAr: "تحديثات الطلبات",
+                        label: "Request Updates",
+                        descAr: "إشعارات حالة طلباتك",
+                        desc: "Status updates for your requests",
+                      },
+                      {
+                        key: "benefits" as const,
+                        labelAr: "تحديثات المزايا",
+                        label: "Benefits Updates",
+                        descAr: "إشعارات المزايا والعروض",
+                        desc: "Benefits and offers notifications",
+                      },
+                      {
+                        key: "marketing" as const,
+                        labelAr: "رسائل التسويق",
+                        label: "Marketing Emails",
+                        descAr: "استلام رسائل تسويقية",
+                        desc: "Receive marketing emails",
+                      },
                     ].map((item) => (
-                      <div key={item.key} className="flex items-center justify-between rounded-xl border border-neutral-200 p-4 dark:border-neutral-800">
+                      <div
+                        key={item.key}
+                        className="flex items-center justify-between rounded-xl border border-neutral-200 p-4 dark:border-neutral-800"
+                      >
                         <div>
                           <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
                             {locale === "ar" ? item.labelAr : item.label}
@@ -380,32 +579,103 @@ export function SettingsPage() {
                             {locale === "ar" ? item.descAr : item.desc}
                           </p>
                         </div>
-                        <button
-                          onClick={() => setNotifications((prev) => ({ ...prev, [item.key]: !prev[item.key] }))}
-                          className={cn(
-                            "relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-neutral-950",
-                            notifications[item.key] ? "bg-brand-600" : "bg-neutral-300 dark:bg-neutral-600"
-                          )}
-                          role="switch"
-                          aria-checked={notifications[item.key]}
+                        <Switch
+                          checked={notifications[item.key]}
+                          onCheckedChange={(checked) =>
+                            setNotifications((prev) => ({ ...prev, [item.key]: checked }))
+                          }
                           aria-label={locale === "ar" ? item.labelAr : item.label}
-                        >
-                          <span
-                            className={cn(
-                              "inline-block h-4 w-4 rounded-full bg-white shadow-sm transition-transform duration-200",
-                              notifications[item.key]
-                                ? "translate-x-6 rtl:-translate-x-6"
-                                : "translate-x-1 rtl:-translate-x-1"
-                            )}
-                          />
-                        </button>
+                        />
                       </div>
                     ))}
                   </CardContent>
                 </Card>
               </TabsContent>
 
-              {/* Devices Tab */}
+              <TabsContent value="privacy">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-base">
+                      {locale === "ar" ? "إعدادات الخصوصية" : "Privacy Settings"}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    {[
+                      {
+                        key: "profileVisible" as const,
+                        labelAr: "الملف الشخصي مرئي",
+                        label: "Profile Visible",
+                        descAr: "السماح للموظفين برؤية ملفك في الدليل",
+                        desc: "Allow employees to see your profile in directory",
+                      },
+                      {
+                        key: "showEmail" as const,
+                        labelAr: "إظهار البريد الإلكتروني",
+                        label: "Show Email",
+                        descAr: "عرض بريدك في الملف الشخصي",
+                        desc: "Display your email on profile",
+                      },
+                      {
+                        key: "showPhone" as const,
+                        labelAr: "إظهار رقم الهاتف",
+                        label: "Show Phone",
+                        descAr: "عرض رقم هاتفك في الملف الشخصي",
+                        desc: "Display your phone on profile",
+                      },
+                      {
+                        key: "activityStatus" as const,
+                        labelAr: "حالة النشاط",
+                        label: "Activity Status",
+                        descAr: "إظهار متى كنت نشطاً آخر مرة",
+                        desc: "Show when you were last active",
+                      },
+                      {
+                        key: "analytics" as const,
+                        labelAr: "تحليلات الاستخدام",
+                        label: "Usage Analytics",
+                        descAr: "المساعدة في تحسين المنصة",
+                        desc: "Help improve the platform",
+                      },
+                    ].map((item) => (
+                      <div
+                        key={item.key}
+                        className="flex items-center justify-between rounded-xl border border-neutral-200 p-4 dark:border-neutral-800"
+                      >
+                        <div>
+                          <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                            {locale === "ar" ? item.labelAr : item.label}
+                          </p>
+                          <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                            {locale === "ar" ? item.descAr : item.desc}
+                          </p>
+                        </div>
+                        <Switch
+                          checked={privacy[item.key]}
+                          onCheckedChange={(checked) =>
+                            setPrivacy((prev) => ({ ...prev, [item.key]: checked }))
+                          }
+                          aria-label={locale === "ar" ? item.labelAr : item.label}
+                        />
+                      </div>
+                    ))}
+                    <div className="flex justify-end pt-2">
+                      <Button
+                        onClick={() =>
+                          toast.success(
+                            locale === "ar"
+                              ? "تم حفظ إعدادات الخصوصية"
+                              : "Privacy settings saved"
+                          )
+                        }
+                      >
+                        <Save className="h-4 w-4 me-2" />
+                        {locale === "ar" ? "حفظ" : "Save"}
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
               <TabsContent value="devices">
                 <Card>
                   <CardHeader>
@@ -414,19 +684,20 @@ export function SettingsPage() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-2.5">
-                    {[
-                      { name: "MacBook Pro", location: locale === "ar" ? "القاهرة، مصر" : "Cairo, Egypt", lastActive: locale === "ar" ? "نشط الآن" : "Active now", current: true },
-                      { name: "iPhone 15", location: locale === "ar" ? "القاهرة، مصر" : "Cairo, Egypt", lastActive: locale === "ar" ? "منذ ساعتين" : "2 hours ago", current: false },
-                      { name: "Windows PC", location: locale === "ar" ? "الإسكندرية، مصر" : "Alexandria, Egypt", lastActive: locale === "ar" ? "منذ 3 أيام" : "3 days ago", current: false },
-                    ].map((device) => (
-                      <div key={device.name} className="flex items-center justify-between rounded-xl border border-neutral-200 p-4 dark:border-neutral-800">
+                    {devices.map((device) => (
+                      <div
+                        key={device.id}
+                        className="flex items-center justify-between rounded-xl border border-neutral-200 p-4 dark:border-neutral-800"
+                      >
                         <div className="flex items-center gap-3">
                           <div className="rounded-lg bg-neutral-100 p-2 dark:bg-neutral-800">
                             <Smartphone className="h-5 w-5 text-neutral-600 dark:text-neutral-400" />
                           </div>
                           <div>
                             <div className="flex items-center gap-2">
-                              <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">{device.name}</p>
+                              <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                                {device.name}
+                              </p>
                               {device.current && (
                                 <Badge variant="success" className="text-[10px]">
                                   {locale === "ar" ? "الحالية" : "Current"}
@@ -439,7 +710,12 @@ export function SettingsPage() {
                           </div>
                         </div>
                         {!device.current && (
-                          <Button variant="ghost" size="sm" className="text-red-500 hover:text-red-600 rounded-xl" onClick={() => toast.success(locale === "ar" ? `تم إزالة ${device.name}` : `${device.name} removed`)}>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="text-red-500 hover:text-red-600 rounded-xl"
+                            onClick={() => handleRemoveDevice(device.id, device.name)}
+                          >
                             {locale === "ar" ? "إزالة" : "Remove"}
                           </Button>
                         )}
