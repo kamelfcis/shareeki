@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import { App } from "@/app";
 import "@/index.css";
@@ -26,9 +26,23 @@ function initializeApp() {
   }
 }
 
+
+// After a new deployment, cached entry chunks may reference removed lazy chunks.
+window.addEventListener("vite:preloadError", (event) => {
+  event.preventDefault();
+  const reloadKey = "shareeki-chunk-reload";
+  if (!sessionStorage.getItem(reloadKey)) {
+    sessionStorage.setItem(reloadKey, "1");
+    window.location.reload();
+  }
+});
+
 initializeApp();
 
 function Root() {
+  useEffect(() => {
+    sessionStorage.removeItem("shareeki-chunk-reload");
+  }, []);
   const [showSplash, setShowSplash] = useState(true);
   const handleSplashComplete = useCallback(() => setShowSplash(false), []);
 

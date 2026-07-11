@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { MainLayout } from "@/components/layout/main-layout";
 import { AuthLayout } from "@/components/layout/auth-layout";
@@ -7,28 +7,30 @@ import { useAuth, useLocale, useTheme } from "@/hooks";
 import { Skeleton } from "@/components/ui/skeleton";
 
 // Lazy load pages
-const LoginPage = lazy(() => import("@/features/auth/login-page").then(m => ({ default: m.LoginPage })));
-const RegisterPage = lazy(() => import("@/features/auth/register-page").then(m => ({ default: m.RegisterPage })));
-const ForgotPasswordPage = lazy(() => import("@/features/auth/forgot-password-page").then(m => ({ default: m.ForgotPasswordPage })));
-const ResetPasswordPage = lazy(() => import("@/features/auth/reset-password-page").then(m => ({ default: m.ResetPasswordPage })));
-const OtpPage = lazy(() => import("@/features/auth/otp-page").then(m => ({ default: m.OtpPage })));
-const DashboardPage = lazy(() => import("@/features/dashboard/dashboard-page").then(m => ({ default: m.DashboardPage })));
-const ServicesPage = lazy(() => import("@/features/services/services-page").then(m => ({ default: m.ServicesPage })));
-const RequestsPage = lazy(() => import("@/features/requests/requests-page").then(m => ({ default: m.RequestsPage })));
-const WalletPage = lazy(() => import("@/features/wallet/wallet-page").then(m => ({ default: m.WalletPage })));
-const NewsPage = lazy(() => import("@/features/news/news-page").then(m => ({ default: m.NewsPage })));
-const DirectoryPage = lazy(() => import("@/features/directory/directory-page").then(m => ({ default: m.DirectoryPage })));
-const NotificationsPage = lazy(() => import("@/features/notifications/notifications-page").then(m => ({ default: m.NotificationsPage })));
-const DocumentsPage = lazy(() => import("@/features/documents/documents-page").then(m => ({ default: m.DocumentsPage })));
-const SupportPage = lazy(() => import("@/features/support/support-page").then(m => ({ default: m.SupportPage })));
-const SettingsPage = lazy(() => import("@/features/settings/settings-page").then(m => ({ default: m.SettingsPage })));
-const EmployeeProfilePage = lazy(() => import("@/features/employee/employee-profile-page").then(m => ({ default: m.EmployeeProfilePage })));
-const AdminDashboardPage = lazy(() => import("@/features/admin/admin-dashboard-page").then(m => ({ default: m.AdminDashboardPage })));
-const AdminUsersPage = lazy(() => import("@/features/admin/admin-users-page").then(m => ({ default: m.AdminUsersPage })));
-const AdminDepartmentsPage = lazy(() => import("@/features/admin/admin-departments-page").then(m => ({ default: m.AdminDepartmentsPage })));
-const AdminServicesPage = lazy(() => import("@/features/admin/admin-services-page").then(m => ({ default: m.AdminServicesPage })));
-const AdminApprovalsPage = lazy(() => import("@/features/admin/admin-approvals-page").then(m => ({ default: m.AdminApprovalsPage })));
-const NotFoundPage = lazy(() => import("@/pages/not-found-page").then(m => ({ default: m.NotFoundPage })));
+import { lazyWithRetry } from "@/lib/lazy-with-retry";
+
+const LoginPage = lazyWithRetry(() => import("@/features/auth/login-page").then(m => ({ default: m.LoginPage })));
+const RegisterPage = lazyWithRetry(() => import("@/features/auth/register-page").then(m => ({ default: m.RegisterPage })));
+const ForgotPasswordPage = lazyWithRetry(() => import("@/features/auth/forgot-password-page").then(m => ({ default: m.ForgotPasswordPage })));
+const ResetPasswordPage = lazyWithRetry(() => import("@/features/auth/reset-password-page").then(m => ({ default: m.ResetPasswordPage })));
+const OtpPage = lazyWithRetry(() => import("@/features/auth/otp-page").then(m => ({ default: m.OtpPage })));
+const DashboardPage = lazyWithRetry(() => import("@/features/dashboard/dashboard-page").then(m => ({ default: m.DashboardPage })));
+const ServicesPage = lazyWithRetry(() => import("@/features/services/services-page").then(m => ({ default: m.ServicesPage })));
+const RequestsPage = lazyWithRetry(() => import("@/features/requests/requests-page").then(m => ({ default: m.RequestsPage })));
+const WalletPage = lazyWithRetry(() => import("@/features/wallet/wallet-page").then(m => ({ default: m.WalletPage })));
+const NewsPage = lazyWithRetry(() => import("@/features/news/news-page").then(m => ({ default: m.NewsPage })));
+const DirectoryPage = lazyWithRetry(() => import("@/features/directory/directory-page").then(m => ({ default: m.DirectoryPage })));
+const NotificationsPage = lazyWithRetry(() => import("@/features/notifications/notifications-page").then(m => ({ default: m.NotificationsPage })));
+const DocumentsPage = lazyWithRetry(() => import("@/features/documents/documents-page").then(m => ({ default: m.DocumentsPage })));
+const SupportPage = lazyWithRetry(() => import("@/features/support/support-page").then(m => ({ default: m.SupportPage })));
+const SettingsPage = lazyWithRetry(() => import("@/features/settings/settings-page").then(m => ({ default: m.SettingsPage })));
+const EmployeeProfilePage = lazyWithRetry(() => import("@/features/employee/employee-profile-page").then(m => ({ default: m.EmployeeProfilePage })));
+const AdminDashboardPage = lazyWithRetry(() => import("@/features/admin/admin-dashboard-page").then(m => ({ default: m.AdminDashboardPage })));
+const AdminUsersPage = lazyWithRetry(() => import("@/features/admin/admin-users-page").then(m => ({ default: m.AdminUsersPage })));
+const AdminDepartmentsPage = lazyWithRetry(() => import("@/features/admin/admin-departments-page").then(m => ({ default: m.AdminDepartmentsPage })));
+const AdminServicesPage = lazyWithRetry(() => import("@/features/admin/admin-services-page").then(m => ({ default: m.AdminServicesPage })));
+const AdminApprovalsPage = lazyWithRetry(() => import("@/features/admin/admin-approvals-page").then(m => ({ default: m.AdminApprovalsPage })));
+const NotFoundPage = lazyWithRetry(() => import("@/pages/not-found-page").then(m => ({ default: m.NotFoundPage })));
 
 function PageLoader() {
   return (
